@@ -1,0 +1,80 @@
+.vs
+
+# .NET build artifacts
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code settings
+.vscode/
+
+# Visual Studio settings
+.vs/
+
+
+
+## Ignore Visual Studio temporary files, build results, and
+## user-specific files
+
+# Build results
+bin/
+obj/
+[Oo]ut/
+*.log
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+Generated_Code/
+
+# Visual Studio Code workspace
+.vscode/
+
+# Visual Studio working folder
+.vs/
+
+# NuGet packages (if not using PackageReference)
+packages/
+*.nupkg
+
+# Windows image file caches
+*.iobj
+*.ipdb
+
+# Database files
+*.mdf
+*.ldf
+
+# Publish output
+publish/
+*.publishsettings
+
+# Resharper / Rider
+.idea/
+*.DotSettings.user
+
+# DotCover
+*.dcvr
+
+# IIS/Express
+.vsconfig
+*.vspscc
+*.vssscc
+
+# Others
+TestResults/
+*.dbmdl
+*.bak
+*.orig
+*.cache
+*.pdb
