@@ -11,8 +11,6 @@ public partial class Review
 
     public decimal? GameId { get; set; }
 
-    public string LastName { get; set; } = null!;
-
     public string Review1 { get; set; } = null!;
 
     public decimal Rating { get; set; }

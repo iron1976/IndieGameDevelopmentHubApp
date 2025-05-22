@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace IndieGameDevelopmentHubApp
 {
-    public partial class TESTY : UserControl
+    public partial class ManageAccountPanel : UserControl
     {
-        public TESTY()
+        public ManageAccountPanel()
         {
             InitializeComponent();
         }

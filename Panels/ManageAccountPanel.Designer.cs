@@ -1,6 +1,6 @@
 ﻿namespace IndieGameDevelopmentHubApp
 {
-    partial class UserControl1
+    partial class ManageAccountPanel
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,40 +29,65 @@
         private void InitializeComponent()
         {
             button1 = new Button();
-            panel1 = new Panel();
+            button2 = new Button();
+            button3 = new Button();
+            button4 = new Button();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Location = new Point(87, 160);
+            button1.Location = new Point(0, 495);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 0;
-            button1.Text = "TESTTTT";
+            button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
-            // panel1
+            // button2
             // 
-            panel1.Location = new Point(251, 82);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(564, 309);
-            panel1.TabIndex = 1;
+            button2.Location = new Point(886, 495);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 1;
+            button2.Text = "button2";
+            button2.UseVisualStyleBackColor = true;
             // 
-            // UserControl1
+            // button3
+            // 
+            button3.Location = new Point(0, 0);
+            button3.Name = "button3";
+            button3.Size = new Size(75, 23);
+            button3.TabIndex = 2;
+            button3.Text = "button3";
+            button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            button4.Location = new Point(886, 0);
+            button4.Name = "button4";
+            button4.Size = new Size(75, 23);
+            button4.TabIndex = 3;
+            button4.Text = "button4";
+            button4.UseVisualStyleBackColor = true;
+            // 
+            // ManageAccountPanel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(panel1);
+            Controls.Add(button4);
+            Controls.Add(button3);
+            Controls.Add(button2);
             Controls.Add(button1);
-            Name = "UserControl1";
-            Size = new Size(867, 429);
+            Name = "ManageAccountPanel";
+            Size = new Size(961, 518);
             ResumeLayout(false);
         }
 
         #endregion
 
         private Button button1;
-        private Panel panel1;
+        private Button button2;
+        private Button button3;
+        private Button button4;
     }
 }

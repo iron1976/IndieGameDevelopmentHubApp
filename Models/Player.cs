@@ -7,7 +7,9 @@ public partial class Player
 {
     public decimal PlayerId { get; set; }
 
-    public string PlayerName { get; set; } = null!;
+    public string FirstName { get; set; } = null!;
+
+    public string LastName { get; set; } = null!;
 
     public DateTime RegisterDate { get; set; }
 
