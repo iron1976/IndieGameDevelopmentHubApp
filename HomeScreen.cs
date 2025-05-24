@@ -58,6 +58,7 @@ namespace IndieGameDevelopmentHubApp
             }
             else if (TabControl.SelectedTab == LogOutTab)
             {
+                OpenPanel(new LogOutPanel());
             }
         } 
         void OpenPanel(Control controlPanel)
