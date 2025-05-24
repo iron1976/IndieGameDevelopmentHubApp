@@ -20,7 +20,7 @@ namespace IndieGameDevelopmentHubApp
             Developer = 1,
             Player = 2,
             Tester = 3,
-        }
+        }//WORK forr email length: 14
         public static User LoggedInUser;
 
         public static DbContextOptionsBuilder<IndieGameDevelopmentHubContext> optionsBuilder = new DbContextOptionsBuilder<IndieGameDevelopmentHubContext>();

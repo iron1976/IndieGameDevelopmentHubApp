@@ -37,7 +37,7 @@ namespace IndieGameDevelopmentHubApp
             else if (TabControl.SelectedTab == TestersTab)
             {
 
-                var dataControl = new DataControlPanel("SELECT * FROM TESTERS");
+                var dataControl = new DataControlPanel("SELECT * FROM ASSETS");
                 
                 OpenPanel(dataControl);
             }

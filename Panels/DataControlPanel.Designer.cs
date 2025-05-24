@@ -75,6 +75,8 @@
             DataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             DataGridView.Size = new Size(645, 412);
             DataGridView.TabIndex = 1;
+            DataGridView.CellContentClick += DataGridViewClicked;
+            DataGridView.SelectionChanged += DataGridViewSelected;
             // 
             // testerIdDataGridViewTextBoxColumn
             // 
