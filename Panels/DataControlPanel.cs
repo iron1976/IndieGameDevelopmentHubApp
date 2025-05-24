@@ -60,7 +60,7 @@ namespace IndieGameDevelopmentHubApp.Panels
                 int col = DataGridView.CurrentCell.ColumnIndex;
                 var value = DataGridView.CurrentCell.Value;
 
-                main.print($"New selection: " + DataGridView.Columns.   );
+                main.print($"New selection: " + DataGridView.CurrentCell.OwningColumn.Name);
             }
 
         }

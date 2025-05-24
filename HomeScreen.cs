@@ -55,6 +55,7 @@ namespace IndieGameDevelopmentHubApp
             }
             else if (TabControl.SelectedTab == RunSqlTab)
             {
+                OpenPanel(new RunSQLPanel());
             }
             else if (TabControl.SelectedTab == LogOutTab)
             {
