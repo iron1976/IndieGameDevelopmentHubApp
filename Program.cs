@@ -39,7 +39,7 @@ namespace IndieGameDevelopmentHubApp
                 db.SaveChanges();
             }
         }
-        public static LoginRegisterScreen CurrentForm;
+        public static Form CurrentForm;
         [STAThread]
         static void Main()
         {
@@ -49,7 +49,7 @@ namespace IndieGameDevelopmentHubApp
 
 
             ApplicationConfiguration.Initialize();
-            CurrentForm = new LoginRegisterScreen();
+            CurrentForm = new MainForm();
             Application.Run(CurrentForm);
         }
     }

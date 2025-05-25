@@ -76,7 +76,7 @@
             TabControl.SelectedIndex = 0;
             TabControl.Size = new Size(979, 30);
             TabControl.TabIndex = 5;
-            TabControl.SelectedIndexChanged += TabControl1_SelectedIndexChanged;
+            TabControl.Selecting += TabControl1_SelectedIndexChanged;
             // 
             // HomeTab
             // 

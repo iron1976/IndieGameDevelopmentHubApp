@@ -82,7 +82,7 @@
             button1.Font = new Font("Segoe UI", 10F);
             button1.Location = new Point(689, 342);
             button1.Name = "button1";
-            button1.Size = new Size(68, 42);
+            button1.Size = new Size(68, 43);
             button1.TabIndex = 3;
             button1.Text = "Register";
             button1.UseVisualStyleBackColor = true;
@@ -138,7 +138,7 @@
             label3.Anchor = AnchorStyles.Left;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(169, 154);
+            label3.Location = new Point(169, 155);
             label3.Name = "label3";
             label3.Size = new Size(33, 15);
             label3.TabIndex = 9;
@@ -149,7 +149,7 @@
             label4.Anchor = AnchorStyles.Left;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(169, 198);
+            label4.Location = new Point(169, 199);
             label4.Name = "label4";
             label4.Size = new Size(62, 15);
             label4.TabIndex = 10;
@@ -160,7 +160,7 @@
             label5.Anchor = AnchorStyles.Left;
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(562, 240);
+            label5.Location = new Point(562, 241);
             label5.Name = "label5";
             label5.Size = new Size(33, 15);
             label5.TabIndex = 11;
@@ -171,7 +171,7 @@
             label6.Anchor = AnchorStyles.Left;
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(562, 291);
+            label6.Location = new Point(562, 292);
             label6.Margin = new Padding(0, 0, 3, 0);
             label6.Name = "label6";
             label6.Size = new Size(62, 15);
@@ -205,7 +205,7 @@
             label7.Anchor = AnchorStyles.Left;
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(562, 342);
+            label7.Location = new Point(562, 343);
             label7.Margin = new Padding(0, 0, 3, 0);
             label7.Name = "label7";
             label7.Size = new Size(65, 15);
@@ -231,7 +231,7 @@
             label8.Anchor = AnchorStyles.Left;
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(562, 154);
+            label8.Location = new Point(562, 155);
             label8.Name = "label8";
             label8.Size = new Size(67, 15);
             label8.TabIndex = 18;
@@ -256,7 +256,7 @@
             label9.Anchor = AnchorStyles.Left;
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(562, 198);
+            label9.Location = new Point(562, 199);
             label9.Name = "label9";
             label9.Size = new Size(65, 15);
             label9.TabIndex = 21;
@@ -276,7 +276,6 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(987, 573);
             Controls.Add(IsLicensedCheckBox);
             Controls.Add(label9);
             Controls.Add(RegisterLastNameInput);
@@ -299,13 +298,10 @@
             Controls.Add(RegisterPasswordInput);
             Controls.Add(RegisterMailInput);
             Controls.Add(label1);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            MaximizeBox = false;
-            MinimizeBox = false;
             Name = "LoginRegisterScreen";
-            Text = "Indie Game Development Hub";
+            Size = new Size(986, 574);
             ResumeLayout(false);
-            PerformLayout(); 
+            PerformLayout();
         }
 
         #endregion

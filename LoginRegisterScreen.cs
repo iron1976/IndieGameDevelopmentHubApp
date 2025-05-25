@@ -15,7 +15,7 @@ using main = IndieGameDevelopmentHubApp.Program;
 
 namespace IndieGameDevelopmentHubApp
 {
-    public partial class LoginRegisterScreen : Form
+    public partial class LoginRegisterScreen : UserControl
     {
         public LoginRegisterScreen()
         {
@@ -165,9 +165,9 @@ namespace IndieGameDevelopmentHubApp
         }
         private void OpenHomeScreen()
         {
-            HomeScreen form2 = new();
 
             this.Controls.Clear();   // Clear previous control
+            HomeScreen form2 = new();
             form2.Dock = DockStyle.Fill;     // Fill the panel
             this.Controls.Add(form2);   // Add new one
         }

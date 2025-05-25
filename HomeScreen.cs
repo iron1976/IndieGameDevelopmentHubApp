@@ -28,9 +28,8 @@ namespace IndieGameDevelopmentHubApp
 
 
         }
-        private void TabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Panel.Controls.Clear();
+        private void TabControl1_SelectedIndexChanged(object sender, TabControlCancelEventArgs e)
+        { 
             if (TabControl.SelectedTab == HomeTab)
             {
             }
@@ -93,6 +92,7 @@ namespace IndieGameDevelopmentHubApp
             }
             else if (TabControl.SelectedTab == LogOutTab)
             {
+                
                 DialogResult result = MessageBox.Show(
               "Are you sure you want to log out?",
                     "Confirm Logout",
@@ -104,18 +104,20 @@ namespace IndieGameDevelopmentHubApp
                 {
                     OpenLoginRegisterScreen();
                 }
+                else
+                {
+                    e.Cancel = true; 
+                }
             }
         }
         private void OpenLoginRegisterScreen()
-        { 
-            this.Controls.Clear();   // Clear previous control
-            for(int j = 0;  j <main.CurrentForm.Controls.Count; j++)
-            {
-                this.Controls.Add(main.CurrentForm.Controls[j]);
-            } 
+        {
+            this.Controls.Clear();  
+            this.Controls.Add(new LoginRegisterScreen());
         }
         void OpenPanel(Control controlPanel)
-        { 
+        {
+            Panel.Controls.Clear();
             ManageAccountPanel uc = new();
             controlPanel.Dock = DockStyle.Fill;
             Panel.Controls.Add(controlPanel);
