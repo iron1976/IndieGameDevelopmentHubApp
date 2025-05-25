@@ -19,6 +19,10 @@ namespace IndieGameDevelopmentHubApp
         {
             int x = (this.ClientSize.Width - TabControl.Width) / 2;
             TabControl.Location = new Point(x, TabControl.Location.Y);//Centering Tab Pages
+
+
+            int panelX = (this.ClientSize.Width - Panel.Width) / 2;
+            Panel.Location = new Point(panelX, Panel.Location.Y);//Centering Tab Pages
             IndieGameDevelopmentHubApp.Program.print(TabControl.Location);
 
 
@@ -31,27 +35,57 @@ namespace IndieGameDevelopmentHubApp
             {
             }
             else if (TabControl.SelectedTab == ManageAccountTab)
-            { 
+            {
                 OpenPanel(new ManageAccountPanel());
+            }
+            else if (TabControl.SelectedTab == DevelopersTab)
+            {
+                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM DEVELOPERS", "SELECT * FROM TESTERS" });
+
+                OpenPanel(dataControl);
             }
             else if (TabControl.SelectedTab == TestersTab)
             {
+                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM TESTERS" });
 
-                var dataControl = new DataControlPanel("SELECT * FROM ASSETS");
-                
+                OpenPanel(dataControl);
+            }
+            else if (TabControl.SelectedTab == PlayersTab)
+            {
+                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM PLAYERS" });
+
+                OpenPanel(dataControl);
+            }
+            else if (TabControl.SelectedTab == GamesTab)
+            {
+                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM GAMES" });
+
+                OpenPanel(dataControl);
+            }
+            else if (TabControl.SelectedTab == AssetsTab)
+            {
+                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM ASSETS" });
+
                 OpenPanel(dataControl);
             }
             else if (TabControl.SelectedTab == ReviewsTab)
             {
-            }
-            else if (TabControl.SelectedTab == GamesTab)
-            {
+
+                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM REVIEWS" });
+
+                OpenPanel(dataControl);
             }
             else if (TabControl.SelectedTab == BugReportsTab)
-            {
+            { 
+                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM BUG_REPORTS" });
+
+                OpenPanel(dataControl);
             }
             else if (TabControl.SelectedTab == EventsTab)
             {
+                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM EVENTS" });
+
+                OpenPanel(dataControl);
             }
             else if (TabControl.SelectedTab == RunSqlTab)
             {
@@ -59,9 +93,27 @@ namespace IndieGameDevelopmentHubApp
             }
             else if (TabControl.SelectedTab == LogOutTab)
             {
-                OpenPanel(new LogOutPanel());
+                DialogResult result = MessageBox.Show(
+              "Are you sure you want to log out?",
+                    "Confirm Logout",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (result == DialogResult.Yes)
+                {
+                    OpenLoginRegisterScreen();
+                }
             }
-        } 
+        }
+        private void OpenLoginRegisterScreen()
+        { 
+            this.Controls.Clear();   // Clear previous control
+            for(int j = 0;  j <main.CurrentForm.Controls.Count; j++)
+            {
+                this.Controls.Add(main.CurrentForm.Controls[j]);
+            } 
+        }
         void OpenPanel(Control controlPanel)
         { 
             ManageAccountPanel uc = new();

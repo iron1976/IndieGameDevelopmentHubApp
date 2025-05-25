@@ -5,7 +5,7 @@
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private System.ComponentModel.IContainer components = null; 
 
         /// <summary>
         /// Clean up any resources being used.
@@ -49,6 +49,7 @@
             RegisterFirstNameInput = new TextBox();
             RegisterLastNameInput = new TextBox();
             label9 = new Label();
+            IsLicensedCheckBox = new CheckBox();
             SuspendLayout();
             // 
             // label1
@@ -120,6 +121,7 @@
             UserTypeBox.Name = "UserTypeBox";
             UserTypeBox.Size = new Size(121, 23);
             UserTypeBox.TabIndex = 7;
+            UserTypeBox.SelectedIndexChanged += UserTypeBoxChanged;
             // 
             // button2
             // 
@@ -180,7 +182,7 @@
             // 
             RegisterError.AutoSize = true;
             RegisterError.ForeColor = Color.FromArgb(128, 64, 64);
-            RegisterError.Location = new Point(562, 398);
+            RegisterError.Location = new Point(690, 394);
             RegisterError.Name = "RegisterError";
             RegisterError.Size = new Size(61, 15);
             RegisterError.TabIndex = 13;
@@ -260,11 +262,22 @@
             label9.TabIndex = 21;
             label9.Text = "Last Name";
             // 
+            // IsLicensedCheckBox
+            // 
+            IsLicensedCheckBox.AutoSize = true;
+            IsLicensedCheckBox.Location = new Point(562, 394);
+            IsLicensedCheckBox.Name = "IsLicensedCheckBox";
+            IsLicensedCheckBox.Size = new Size(80, 19);
+            IsLicensedCheckBox.TabIndex = 22;
+            IsLicensedCheckBox.Text = "IsLicensed";
+            IsLicensedCheckBox.UseVisualStyleBackColor = true;
+            // 
             // LoginRegisterScreen
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(987, 573);
+            Controls.Add(IsLicensedCheckBox);
             Controls.Add(label9);
             Controls.Add(RegisterLastNameInput);
             Controls.Add(RegisterFirstNameInput);
@@ -292,7 +305,7 @@
             Name = "LoginRegisterScreen";
             Text = "Indie Game Development Hub";
             ResumeLayout(false);
-            PerformLayout();
+            PerformLayout(); 
         }
 
         #endregion
@@ -318,5 +331,6 @@
         private TextBox RegisterFirstNameInput;
         private TextBox RegisterLastNameInput;
         private Label label9;
+        private CheckBox IsLicensedCheckBox;
     }
 }

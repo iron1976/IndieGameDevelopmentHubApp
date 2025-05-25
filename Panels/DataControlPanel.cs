@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,42 +17,52 @@ using main = IndieGameDevelopmentHubApp.Program;
 namespace IndieGameDevelopmentHubApp.Panels
 {
     public partial class DataControlPanel : UserControl
-    {
-        private SqlDataAdapter adapter;
-        private DataTable dataTable;
+    { 
 
-        public DataControlPanel(string sqlCommandText)
+        public SqlDataAdapter Adapter;
+        public DataTable DataTable;  
+        string[] SQLCommandText;
+        public DataControlPanel(string[] sqlCommandText)
         {
             InitializeComponent();
-            SqlConnection conn = new SqlConnection(main.connectionString);
-            conn.Open();
+            this.SQLCommandText = sqlCommandText;
+            
+            for(int j = TabControl.TabPages.Count-1; j >= 0; j--)  
+                if(j < sqlCommandText.Length)
+                {
+                    TabControl.TabPages[j].Text = sqlCommandText[j].Substring(sqlCommandText[j].LastIndexOf(' ')+1).Replace('_', ' ');    
+                }
+                else
+                    TabControl.TabPages.RemoveAt(j); 
+                
+                
+            SelectSQLData(0);
 
-            adapter = new SqlDataAdapter(sqlCommandText, conn);
-             
-            SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
+        }
 
-            dataTable = new DataTable();
-            adapter.Fill(dataTable);
-            DataGridView.DataSource = dataTable;
+        public void SelectSQLData(int index)
+        {
             DataGridView.Columns.Clear();
             DataGridView.AutoGenerateColumns = true;
             DataGridView.Refresh();
-        }
+            SqlConnection conn = new SqlConnection(main.connectionString);
+            conn.Open();
+            Adapter = new SqlDataAdapter(SQLCommandText[index], conn);
 
-        private void DataControlPanel_Load(object sender, EventArgs e)
-        {
-        }
+            SqlCommandBuilder builder = new SqlCommandBuilder(Adapter);
 
+            DataTable = new DataTable();
+            Adapter.Fill(DataTable);
+            DataGridView.DataSource = DataTable;
+
+        }
+        public void DataControlPanel_Load(object sender, EventArgs e)
+        { 
+        }
         private void SaveChangesButtonClicked(object sender, EventArgs e)
         {
-            adapter.Update(dataTable);
-
-        }
-
-        private void DataGridViewClicked(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
+            this.Adapter.Update(this.DataTable);
+        } 
         private void DataGridViewSelected(object sender, EventArgs e)
         {
             if (DataGridView.CurrentCell != null)
@@ -63,6 +74,21 @@ namespace IndieGameDevelopmentHubApp.Panels
                 main.print($"New selection: " + DataGridView.CurrentCell.OwningColumn.Name);
             }
 
+        } 
+
+        private void DeleteTuppleButtonClicked(object sender, EventArgs e)
+        {
+            if (DataGridView.CurrentRow == null)
+            {
+                MessageBox.Show("Please select a row to delete.");
+                return;
+            }
+            (DataGridView.CurrentRow.DataBoundItem as DataRowView).Row.Delete();
+        }
+
+        private void TabControlSelectedIndexChanged(object sender, EventArgs e)
+        { 
+            SelectSQLData((byte)TabControl.SelectedIndex); 
         }
     }
 }

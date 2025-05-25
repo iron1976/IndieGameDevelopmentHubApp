@@ -20,6 +20,7 @@ namespace IndieGameDevelopmentHubApp
         public LoginRegisterScreen()
         {
             InitializeComponent();
+            IsLicensedCheckBox.Visible = false;
         }
 
 
@@ -32,21 +33,21 @@ namespace IndieGameDevelopmentHubApp
             string password = RegisterPasswordInput.Text;
             string firstName = RegisterFirstNameInput.Text;
             string lastName = RegisterLastNameInput.Text;
-            main.UserTypeEnum userType = (main.UserTypeEnum)UserTypeBox.SelectedIndex+1;
+            main.UserTypeEnum userType = (main.UserTypeEnum)UserTypeBox.SelectedIndex + 1;
             main.print("ENTERED: " + mail + " " + password + " " + userType.ToString());
-        
+
             if (!mail.Contains('@'))
             {
                 this.RegisterError.Visible = true;
                 this.RegisterError.Text = "*Email doesn't include \'@\'.";
             }
-            else if(string.IsNullOrEmpty(firstName))
-            { 
+            else if (string.IsNullOrEmpty(firstName))
+            {
                 this.RegisterError.Visible = true;
                 this.RegisterError.Text = "*First name is empty.";
             }
-            else if(string.IsNullOrEmpty(lastName))
-            { 
+            else if (string.IsNullOrEmpty(lastName))
+            {
                 this.RegisterError.Visible = true;
                 this.RegisterError.Text = "*Last name is empty.";
             }
@@ -102,7 +103,8 @@ namespace IndieGameDevelopmentHubApp
                             Email = mail,
                             Password = password,
                             TesterId = TesterId,
-                            RegisterDate = DateTime.Now
+                            RegisterDate = DateTime.Now,
+                            IsLicensed = IsLicensedCheckBox.Checked
                         });
                         RegisterError.Visible = false;
                         RegisterCompleteText.Visible = true;
@@ -169,6 +171,14 @@ namespace IndieGameDevelopmentHubApp
             form2.Dock = DockStyle.Fill;     // Fill the panel
             this.Controls.Add(form2);   // Add new one
         }
-         
+
+        private void UserTypeBoxChanged(object sender, EventArgs e)
+        {
+
+            if (UserTypeBox.SelectedIndex == 2)//Choosing TESTER
+                IsLicensedCheckBox.Visible = true;
+            else
+                IsLicensedCheckBox.Visible = false;
+        }
     }
 }

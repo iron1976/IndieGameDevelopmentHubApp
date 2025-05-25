@@ -1,4 +1,5 @@
-﻿namespace IndieGameDevelopmentHubApp.Panels
+﻿
+namespace IndieGameDevelopmentHubApp.Panels
 {
     partial class DataControlPanel
     {
@@ -44,9 +45,20 @@
             testerBindingSource = new BindingSource(components);
             assetBindingSource = new BindingSource(components);
             SaveChangesButton = new Button();
+            OperationsText = new Label();
+            label1 = new Label();
+            DeleteTuppleButton = new Button();
+            TabControl = new TabControl();
+            TabPage1 = new TabPage();
+            TabPage2 = new TabPage();
+            TabPage3 = new TabPage();
+            TabPage4 = new TabPage();
+            TabPage5 = new TabPage();
+            TabPage6 = new TabPage();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)testerBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)assetBindingSource).BeginInit();
+            TabControl.SuspendLayout();
             SuspendLayout();
             // 
             // DataGridView
@@ -63,7 +75,7 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             DataGridView.DefaultCellStyle = dataGridViewCellStyle1;
-            DataGridView.Location = new Point(299, 57);
+            DataGridView.Location = new Point(299, 41);
             DataGridView.Name = "DataGridView";
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Control;
@@ -73,9 +85,8 @@
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             DataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            DataGridView.Size = new Size(645, 412);
-            DataGridView.TabIndex = 1;
-            DataGridView.CellContentClick += DataGridViewClicked;
+            DataGridView.Size = new Size(645, 428);
+            DataGridView.TabIndex = 1; 
             DataGridView.SelectionChanged += DataGridViewSelected;
             // 
             // testerIdDataGridViewTextBoxColumn
@@ -150,10 +161,120 @@
             SaveChangesButton.UseVisualStyleBackColor = true;
             SaveChangesButton.Click += SaveChangesButtonClicked;
             // 
+            // OperationsText
+            // 
+            OperationsText.AutoSize = true;
+            OperationsText.Font = new Font("Segoe UI", 13F);
+            OperationsText.Location = new Point(14, 17);
+            OperationsText.Name = "OperationsText";
+            OperationsText.Size = new Size(104, 25);
+            OperationsText.TabIndex = 3;
+            OperationsText.Text = "Operations:"; 
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(147, 41);
+            label1.Name = "label1";
+            label1.Size = new Size(79, 21);
+            label1.TabIndex = 4;
+            label1.Text = "DataView:";
+            // 
+            // DeleteTuppleButton
+            // 
+            DeleteTuppleButton.Location = new Point(88, 177);
+            DeleteTuppleButton.Name = "DeleteTuppleButton";
+            DeleteTuppleButton.Size = new Size(117, 23);
+            DeleteTuppleButton.TabIndex = 5;
+            DeleteTuppleButton.Text = "Delete Tuple";
+            DeleteTuppleButton.UseVisualStyleBackColor = true;
+            DeleteTuppleButton.Click += DeleteTuppleButtonClicked;
+            // 
+            // TabControl
+            // 
+            TabControl.Controls.Add(TabPage1);
+            TabControl.Controls.Add(TabPage2);
+            TabControl.Controls.Add(TabPage3);
+            TabControl.Controls.Add(TabPage4);
+            TabControl.Controls.Add(TabPage5);
+            TabControl.Controls.Add(TabPage6);
+            TabControl.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            TabControl.Location = new Point(299, 14);
+            TabControl.Name = "TabControl";
+            TabControl.SelectedIndex = 0;
+            TabControl.Size = new Size(460, 27);
+            TabControl.TabIndex = 6;
+            TabControl.SelectedIndexChanged += TabControlSelectedIndexChanged;
+            // 
+            // TabPage1
+            // 
+            TabPage1.Location = new Point(4, 29);
+            TabPage1.Name = "TabPage1";
+            TabPage1.Padding = new Padding(3);
+            TabPage1.Size = new Size(452, 0);
+            TabPage1.TabIndex = 0;
+            TabPage1.Text = "tabPage1";
+            TabPage1.UseVisualStyleBackColor = true;
+            // 
+            // TabPage2
+            // 
+            TabPage2.Location = new Point(4, 29);
+            TabPage2.Name = "TabPage2";
+            TabPage2.Padding = new Padding(3);
+            TabPage2.Size = new Size(452, 0);
+            TabPage2.TabIndex = 1;
+            TabPage2.Text = "tabPage2";
+            TabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            TabPage3.Location = new Point(4, 29);
+            TabPage3.Name = "tabPage3";
+            TabPage3.Padding = new Padding(3);
+            TabPage3.Size = new Size(452, 0);
+            TabPage3.TabIndex = 2;
+            TabPage3.Text = "tabPage3";
+            TabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            TabPage4.Location = new Point(4, 29);
+            TabPage4.Name = "tabPage4";
+            TabPage4.Padding = new Padding(3);
+            TabPage4.Size = new Size(452, 0);
+            TabPage4.TabIndex = 3;
+            TabPage4.Text = "tabPage4";
+            TabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tabPage5
+            // 
+            TabPage5.Location = new Point(4, 29);
+            TabPage5.Name = "tabPage5";
+            TabPage5.Padding = new Padding(3);
+            TabPage5.Size = new Size(452, 0);
+            TabPage5.TabIndex = 4;
+            TabPage5.Text = "tabPage5";
+            TabPage5.UseVisualStyleBackColor = true;
+            // 
+            // tabPage6
+            // 
+            TabPage6.Location = new Point(4, 29);
+            TabPage6.Name = "tabPage6";
+            TabPage6.Padding = new Padding(3);
+            TabPage6.Size = new Size(452, 0);
+            TabPage6.TabIndex = 5;
+            TabPage6.Text = "tabPage6";
+            TabPage6.UseVisualStyleBackColor = true;
+            // 
             // DataControlPanel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(TabControl);
+            Controls.Add(DeleteTuppleButton);
+            Controls.Add(label1);
+            Controls.Add(OperationsText);
             Controls.Add(SaveChangesButton);
             Controls.Add(DataGridView);
             Name = "DataControlPanel";
@@ -162,7 +283,9 @@
             ((System.ComponentModel.ISupportInitialize)DataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)testerBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)assetBindingSource).EndInit();
+            TabControl.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -180,5 +303,16 @@
         private DataGridViewTextBoxColumn testersAccessesDataGridViewTextBoxColumn;
         private BindingSource testerBindingSource;
         private Button SaveChangesButton;
+        private Label OperationsText;
+        private Label label1;
+        private Button DeleteTuppleButton;
+        private TabControl TabControl;
+        private TabPage TabPage1;
+        private TabPage TabPage2;
+        private TabPage TabPage3;
+        private TabPage TabPage4;
+        private TabPage TabPage5;
+        private TabPage TabPage6;
+         
     }
 }
