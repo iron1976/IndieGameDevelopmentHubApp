@@ -73,7 +73,7 @@ create table PLAYERS      (
 );
 create table REVIEWS    (
   ReviewID       decimal(4),
-  ByPlayerID 	 decimal(4),-- PLAYERS-REVIEWS(1:N) players have multiple reviews
+  PlayerID 	     decimal(4),-- PLAYERS-REVIEWS(1:N) players have multiple reviews
   GameID 	     decimal(4),-- GAMES-REVIEWS(1:N)
   LastName   	 varchar(14) NOT NULL,
   Review 		 varchar(30) NOT NULL,
@@ -81,7 +81,7 @@ create table REVIEWS    (
   ReviewDate 	 datetime,
   CONSTRAINT     RatingRange CHECK (Rating BETWEEN 0 AND 5),
   PRIMARY KEY 	 (ReviewID),
-  FOREIGN KEY 	 (ByPlayerID) REFERENCES PLAYERS(PlayerID),
+  FOREIGN KEY 	 (PlayerID)   REFERENCES PLAYERS(PlayerID),
   FOREIGN KEY 	 (GameID) 	  REFERENCES GAMES(GameID)
 ); 
 create table ASSETS   (    
