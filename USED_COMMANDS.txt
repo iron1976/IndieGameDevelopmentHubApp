@@ -51,7 +51,7 @@ CREATE INDEX TitleIndex ON GAMES(Title);
 create table WORKS_ON ( -- DEVELOPERS-GAMES(M:N)
   DevID 		 decimal(4) NOT NULL,
   GameID 		 decimal(4) NOT NULL,
-  role 			 VARCHAR(10), -- Lead Developer, Designer, etc.
+  Role 			 VARCHAR(10), -- Lead Developer, Designer, etc.
   PRIMARY KEY 	 (DevID, GameID),
   FOREIGN KEY 	 (DevID)  REFERENCES Developers(DevID),
   FOREIGN KEY 	 (GameID) REFERENCES GAMES(GameID)
@@ -64,8 +64,9 @@ CREATE TABLE GAME_GENRES (--(1:N)
 );
 create table PLAYERS      ( 
   PlayerID       decimal(4),  
-  PlayerName	 varchar(14) NOT NULL,
-  RegisterDate   datetime 	NOT NULL,
+  FirstName 	 varchar(14) NOT NULL,
+  LastName       varchar(14) NOT NULL, 
+  RegisterDate   datetime 	 NOT NULL,
   Email 		 varchar(14) NOT NULL UNIQUE,
   Password 		 varchar(14) NOT NULL,
   				 
@@ -74,8 +75,7 @@ create table PLAYERS      (
 create table REVIEWS    (
   ReviewID       decimal(4),
   PlayerID 	     decimal(4),-- PLAYERS-REVIEWS(1:N) players have multiple reviews
-  GameID 	     decimal(4),-- GAMES-REVIEWS(1:N)
-  LastName   	 varchar(14) NOT NULL,
+  GameID 	     decimal(4),-- GAMES-REVIEWS(1:N) 
   Review 		 varchar(30) NOT NULL,
   Rating 		 DECIMAL(3,2) NOT NULL,
   ReviewDate 	 datetime,
@@ -117,7 +117,7 @@ create table TESTERS_ACCESS    (
 );
 CREATE INDEX PlayerEmailIndex ON PLAYERS(Email);
 create table EVENTS      ( 
-  eventID        decimal(4),  
+  EventID        decimal(4),  
   Description	 varchar(14),
   EventStartDate datetime NOT NULL,
   EventEndDate   datetime NOT NULL,
