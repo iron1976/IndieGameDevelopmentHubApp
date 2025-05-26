@@ -1,0 +1,296 @@
+
+
+
+#Updating / Adding DATABASE MODEL
+Scaffold-DbContext "Server=localhost;Database=IndieGameDevelopmentHub;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force
+
+
+#REMOVE ALL TABLES---------------------------------------------------------------------------------------------------------   
+
+DROP TABLE BUG_REPORTS;
+DROP TABLE EVENTS;
+DROP TABLE TESTERS_ACCESS;
+DROP TABLE TESTERS;
+DROP TABLE ASSETS;
+DROP TABLE REVIEWS;
+DROP TABLE GAME_GENRES;
+DROP TABLE WORKS_ON;
+DROP TABLE DEVELOPER_FINANCES;
+DROP TABLE PLAYERS;
+DROP TABLE GAMES;
+DROP TABLE DEVELOPERS;
+
+#CREATE ALL TABLES--------------------------------------------------------------------------------------------------------- 
+create table DEVELOPERS  
+(   
+  DevID     	 decimal(4),   
+  FirstName   	 varchar(14) NOT NULL,
+  LastName   	 varchar(14) NOT NULL, 
+  Email 		 varchar(14) NOT NULL UNIQUE,
+  Password 		 varchar(14) NOT NULL,
+  RegisterDate 	 datetime,
+  PRIMARY KEY    (DevID)
+  
+); 
+CREATE INDEX DevEmailIndex ON DEVELOPERS(Email);
+CREATE TABLE DEVELOPER_FINANCES (--(1:1)
+  DevID		     decimal(4),
+  Income         decimal(10,2),
+  RaiseRate      decimal(5,2),-- percentage (ex: 10.00 for 10%)
+  PRIMARY KEY    (DevID),
+  FOREIGN KEY    (DevID) REFERENCES DEVELOPERS(DevID)
+);
+create table GAMES  (   
+  GameID 		 decimal(4), 
+  Title 		 varchar(10) NOT NULL, 
+  GameRating 	 DECIMAL(3,2) NOT NULL,-- AVG of all review ratings for this game, DISPLAY EX:(1.24, X.YZ)
+  CONSTRAINT     GameRatingRange CHECK (GameRating BETWEEN 0 AND 5),
+  PRIMARY KEY	 (GameID) 
+);
+CREATE INDEX TitleIndex ON GAMES(Title);
+create table WORKS_ON ( -- DEVELOPERS-GAMES(M:N)
+  DevID 		 decimal(4) NOT NULL,
+  GameID 		 decimal(4) NOT NULL,
+  role 			 VARCHAR(10), -- Lead Developer, Designer, etc.
+  PRIMARY KEY 	 (DevID, GameID),
+  FOREIGN KEY 	 (DevID)  REFERENCES Developers(DevID),
+  FOREIGN KEY 	 (GameID) REFERENCES GAMES(GameID)
+);
+CREATE TABLE GAME_GENRES (--(1:N)
+  GameID	     decimal(4),
+  Genre		     VARCHAR(15),
+  PRIMARY KEY    (GameID, Genre),
+  FOREIGN KEY    (GameID) REFERENCES GAMES(GameID)
+);
+create table PLAYERS      ( 
+  PlayerID       decimal(4),  
+  PlayerName	 varchar(14) NOT NULL,
+  RegisterDate   datetime 	NOT NULL,
+  Email 		 varchar(14) NOT NULL UNIQUE,
+  Password 		 varchar(14) NOT NULL,
+  				 
+  PRIMARY KEY    (PlayerID) 
+);
+create table REVIEWS    (
+  ReviewID       decimal(4),
+  ByPlayerID 	 decimal(4),-- PLAYERS-REVIEWS(1:N) players have multiple reviews
+  GameID 	     decimal(4),-- GAMES-REVIEWS(1:N)
+  LastName   	 varchar(14) NOT NULL,
+  Review 		 varchar(30) NOT NULL,
+  Rating 		 DECIMAL(3,2) NOT NULL,
+  ReviewDate 	 datetime,
+  CONSTRAINT     RatingRange CHECK (Rating BETWEEN 0 AND 5),
+  PRIMARY KEY 	 (ReviewID),
+  FOREIGN KEY 	 (ByPlayerID) REFERENCES PLAYERS(PlayerID),
+  FOREIGN KEY 	 (GameID) 	  REFERENCES GAMES(GameID)
+); 
+create table ASSETS   (    
+  AssetID        decimal(4),
+  GameID 		 decimal(4),-- GAMES-ASSETS(1:N)
+  AssetName   	 varchar(14),
+  AssetType 	 varchar(10),
+  DevID 		 decimal(4),-- DEVELOPERS-ASSETS(1:N)
+  UploadDate 	 datetime,
+  PRIMARY KEY    (AssetID),
+  FOREIGN KEY    (GameID) 	REFERENCES GAMES(GameID),-- GAMES-ASSETS(1:N)
+  FOREIGN KEY    (DevID) 	REFERENCES DEVELOPERS(DevID)-- DEVELOPERS-ASSETS(N:1)
+);
+CREATE INDEX AssetNameIndex ON ASSETS(AssetName);
+create table TESTERS    (  
+  TesterID       decimal(4),   
+  FirstName 	 varchar(14) NOT NULL,
+  LastName       varchar(14) NOT NULL, 
+  RegisterDate   datetime 	NOT NULL,
+  Email 		 varchar(14) NOT NULL UNIQUE,
+  Password 		 varchar(14) NOT NULL,
+  IsLicensed     bit DEFAULT 0,
+  PRIMARY KEY    (TesterID)
+);
+CREATE INDEX TesterEmailIndex ON TESTERS(Email);
+create table TESTERS_ACCESS    (  
+  GameID		 decimal(4) NOT NULL,
+  TesterID       decimal(4) NOT NULL,   
+  IsAllowed		 bit NOT NULL,
+  PRIMARY KEY    (GameID,TesterID),
+  FOREIGN KEY    (TesterID) REFERENCES TESTERS(TesterID),
+  FOREIGN KEY    (GameID)   REFERENCES GAMES(GameID)
+);
+CREATE INDEX PlayerEmailIndex ON PLAYERS(Email);
+create table EVENTS      ( 
+  eventID        decimal(4),  
+  Description	 varchar(14),
+  EventStartDate datetime NOT NULL,
+  EventEndDate   datetime NOT NULL,
+  
+  PRIMARY KEY   (eventID) 
+);
+create table BUG_REPORTS   (   --WeakEntity
+  ReportID 		 decimal(4),
+  GameID 		 decimal(4), -- GAMES-BUG_REPORTS(1:N)
+  TesterID 		 decimal(4), -- TESTERS-BUG_REPORTS(1:N)
+  Report 		 varchar(50),
+  PRIMARY KEY    (ReportID, GameID),
+  FOREIGN KEY    (GameID) 	REFERENCES GAMES(GameID),-- GAMES-BUG_REPORTS(1:N)
+  FOREIGN KEY    (TesterID) REFERENCES TESTERS(TesterID)-- TESTERS-BUG_REPORTS(1:N)
+);
+
+
+#CREATE ALL VIEWS--------------------------------------------------------------------------------------------------------- 
+
+IF OBJECT_ID('DeveloperFinanceView', 'V') IS NOT NULL
+    DROP VIEW DeveloperFinanceView;
+GO
+CREATE VIEW DeveloperFinanceView AS
+SELECT
+    d.DevID, d.FirstName, d.LastName,
+    f.Income, f.RaiseRate
+FROM DEVELOPERS d
+JOIN DEVELOPER_FINANCES f ON d.DevID = f.DevID;
+GO
+ 
+IF OBJECT_ID('AssetOwnerDetails', 'V') IS NOT NULL
+    DROP VIEW AssetOwnerDetails;
+GO
+CREATE VIEW AssetOwnerDetails AS
+SELECT
+    a.AssetID, a.AssetName, a.AssetType, a.UploadDate,
+    d.FirstName + ' ' + d.LastName AS DeveloperName,   
+    g.Title AS GameTitle
+FROM ASSETS a
+JOIN DEVELOPERS d ON a.DevID = d.DevID
+JOIN GAMES g ON a.GameID = g.GameID;
+GO
+ 
+IF OBJECT_ID('PlayerReviews', 'V') IS NOT NULL
+    DROP VIEW PlayerReviews;
+GO
+CREATE VIEW PlayerReviews AS
+SELECT
+    p.FirstName,
+    g.Title AS GameTitle,
+    r.Review, r.Rating, r.ReviewDate
+FROM REVIEWS r
+JOIN PLAYERS p ON r.ByPlayerID = p.PlayerID
+JOIN GAMES g ON r.GameID = g.GameID;
+GO
+
+
+
+#TRIGGERS: --------------------------------------------------------------------------------------------------------- 
+#Update Game Rating After Insert
+
+
+DROP TRIGGER IF EXISTS UpdateGameRate;
+GO 
+CREATE TRIGGER UpdateGameRate
+ON REVIEWS
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Compute average ratings per GameID from the inserted rows
+    ;WITH NewRatings AS (
+        SELECT 
+            GameID,
+            AVG(CAST(Rating AS FLOAT)) AS AvgRating
+        FROM REVIEWS
+        WHERE GameID IN (SELECT GameID FROM INSERTED)
+        GROUP BY GameID
+    )
+    UPDATE G
+    SET G.GameRating = ROUND(NR.AvgRating, 2)
+    FROM GAMES G
+    INNER JOIN NewRatings NR ON G.GameID = NR.GameID;
+END;
+
+
+
+DROP TRIGGER IF EXISTS TriggerSetDeveloperRegisterDate;
+GO
+CREATE TRIGGER TriggerSetDeveloperRegisterDate
+ON DEVELOPERS
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE D
+    SET D.RegisterDate = GETDATE()
+    FROM DEVELOPERS D
+    INNER JOIN INSERTED I ON D.DevID = I.DevID
+    WHERE I.RegisterDate IS NULL;
+END;
+
+
+
+DROP TRIGGER IF EXISTS TriggerSetPlayerRegisterDate;
+GO
+CREATE TRIGGER TriggerSetPlayerRegisterDate
+ON PLAYERS
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE P
+    SET P.RegisterDate = GETDATE()
+    FROM PLAYERS P
+    INNER JOIN INSERTED I ON P.PlayerID = I.PlayerID
+    WHERE I.RegisterDate IS NULL;
+END;
+
+
+
+DROP TRIGGER IF EXISTS TriggerSetTesterRegisterDate;
+GO
+CREATE TRIGGER TriggerSetTesterRegisterDate
+ON TESTERS
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE T
+    SET T.RegisterDate = GETDATE()
+    FROM TESTERS T
+    INNER JOIN INSERTED I ON T.TesterID = I.TesterID
+    WHERE I.RegisterDate IS NULL;
+END;
+
+
+DROP TRIGGER IF EXISTS TriggerSetAssetUploadDate;
+GO
+CREATE TRIGGER TriggerSetAssetUploadDate
+ON ASSETS
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE A
+    SET A.UploadDate = GETDATE()
+    FROM ASSETS A
+    INNER JOIN INSERTED I ON A.AssetID = I.AssetID
+    WHERE I.UploadDate IS NULL;
+END;
+
+
+
+
+
+DROP TRIGGER IF EXISTS TriggerSetReviewDate;
+GO
+CREATE TRIGGER TriggerSetReviewDate
+ON REVIEWS
+AFTER INSERT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE R
+    SET R.ReviewDate = GETDATE()
+    FROM REVIEWS R
+    INNER JOIN INSERTED I ON R.ReviewID = I.ReviewID
+    WHERE I.ReviewDate IS NULL;
+END; 
