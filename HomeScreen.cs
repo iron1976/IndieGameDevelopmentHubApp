@@ -29,7 +29,14 @@ namespace IndieGameDevelopmentHubApp
 
         }
         private void TabControl1_SelectedIndexChanged(object sender, TabControlCancelEventArgs e)
-        { 
+        {
+            if (!this.ParentForm.Enabled)
+            {
+                e.Cancel = true;
+                return;
+            }
+            main.print("parent is: " + this.ParentForm.Enabled);
+
             if (TabControl.SelectedTab == HomeTab)
             {
             }
@@ -39,13 +46,14 @@ namespace IndieGameDevelopmentHubApp
             }
             else if (TabControl.SelectedTab == DevelopersTab)
             {
-                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM DEVELOPERS", "SELECT * FROM TESTERS" });
+                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM DEVELOPERS", "SELECT * FROM DEVELOPER_FINANCES", "SELECT * FROM WORKS_ON"
+                , "SELECT * FROM DeveloperFinanceView"});
 
                 OpenPanel(dataControl);
             }
             else if (TabControl.SelectedTab == TestersTab)
             {
-                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM TESTERS" });
+                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM TESTERS", "SELECT * FROM TESTERS_ACCESS" });
 
                 OpenPanel(dataControl);
             }
@@ -57,7 +65,7 @@ namespace IndieGameDevelopmentHubApp
             }
             else if (TabControl.SelectedTab == GamesTab)
             {
-                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM GAMES" });
+                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM GAMES", "SELECT * FROM GAME_GENRES" });
 
                 OpenPanel(dataControl);
             }
@@ -94,7 +102,7 @@ namespace IndieGameDevelopmentHubApp
             {
                 
                 DialogResult result = MessageBox.Show(
-              "Are you sure you want to log out?",
+               "Are you sure you want to log out?",
                     "Confirm Logout",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question

@@ -56,8 +56,10 @@ namespace IndieGameDevelopmentHubApp.Panels
             DataGridView.DataSource = DataTable;
 
         }
+        private bool IsLoaded = false;
         public void DataControlPanel_Load(object sender, EventArgs e)
-        { 
+        {
+            IsLoaded = true;
         }
         private void SaveChangesButtonClicked(object sender, EventArgs e)
         {
@@ -65,16 +67,36 @@ namespace IndieGameDevelopmentHubApp.Panels
         } 
         private void DataGridViewSelected(object sender, EventArgs e)
         {
-            if (DataGridView.CurrentCell != null)
-            {
-                int row = DataGridView.CurrentCell.RowIndex;
-                int col = DataGridView.CurrentCell.ColumnIndex;
-                var value = DataGridView.CurrentCell.Value;
+            if (!IsLoaded || !this.ParentForm.Enabled)
+                return;
+           if (DataGridView.CurrentCell != null)
+           {
+               int row = DataGridView.CurrentCell.RowIndex;
+               int col = DataGridView.CurrentCell.ColumnIndex;
+               var value = DataGridView.CurrentCell.Value;
+           
+               main.print($"New selection: " + DataGridView.CurrentCell.OwningColumn.Name);
+           
+               if (DataGridView.CurrentCell.OwningColumn.Name.Contains("ID"))
+               {
+                   this.ParentForm.Enabled = false;
+                   DataPickerForm dataPickerForm = new DataPickerForm("SELECT * FROM DEVELOPERS");
+                   dataPickerForm.FormClosed += (x,y) => {
 
-                main.print($"New selection: " + DataGridView.CurrentCell.OwningColumn.Name);
-            }
+                       int rowIndex = DataGridView.CurrentCell.RowIndex;
+                       DataGridView.CurrentCell.Selected = false;
+                       DataGridView.Rows[rowIndex].Cells[0].Selected = true;
 
-        } 
+                       this.ParentForm.Enabled = true; 
+                   
+                   };
+                   dataPickerForm.Show();
+               }
+           
+           }
+
+        }
+         
 
         private void DeleteTuppleButtonClicked(object sender, EventArgs e)
         {

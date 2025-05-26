@@ -166,7 +166,7 @@ IF OBJECT_ID('PlayerReviews', 'V') IS NOT NULL
 GO
 CREATE VIEW PlayerReviews AS
 SELECT
-    p.PlayerName,
+    p.FirstName,
     g.Title AS GameTitle,
     r.Review, r.Rating, r.ReviewDate
 FROM REVIEWS r

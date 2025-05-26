@@ -86,7 +86,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             DataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             DataGridView.Size = new Size(645, 428);
-            DataGridView.TabIndex = 1; 
+            DataGridView.TabIndex = 1;
             DataGridView.SelectionChanged += DataGridViewSelected;
             // 
             // testerIdDataGridViewTextBoxColumn
@@ -169,7 +169,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             OperationsText.Name = "OperationsText";
             OperationsText.Size = new Size(104, 25);
             OperationsText.TabIndex = 3;
-            OperationsText.Text = "Operations:"; 
+            OperationsText.Text = "Operations:";
             // 
             // label1
             // 
@@ -203,7 +203,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabControl.Location = new Point(299, 14);
             TabControl.Name = "TabControl";
             TabControl.SelectedIndex = 0;
-            TabControl.Size = new Size(460, 27);
+            TabControl.Size = new Size(645, 27);
             TabControl.TabIndex = 6;
             TabControl.SelectedIndexChanged += TabControlSelectedIndexChanged;
             // 
@@ -212,7 +212,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabPage1.Location = new Point(4, 29);
             TabPage1.Name = "TabPage1";
             TabPage1.Padding = new Padding(3);
-            TabPage1.Size = new Size(452, 0);
+            TabPage1.Size = new Size(637, 0);
             TabPage1.TabIndex = 0;
             TabPage1.Text = "tabPage1";
             TabPage1.UseVisualStyleBackColor = true;
@@ -227,40 +227,40 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabPage2.Text = "tabPage2";
             TabPage2.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // TabPage3
             // 
             TabPage3.Location = new Point(4, 29);
-            TabPage3.Name = "tabPage3";
+            TabPage3.Name = "TabPage3";
             TabPage3.Padding = new Padding(3);
             TabPage3.Size = new Size(452, 0);
             TabPage3.TabIndex = 2;
             TabPage3.Text = "tabPage3";
             TabPage3.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
+            // TabPage4
             // 
             TabPage4.Location = new Point(4, 29);
-            TabPage4.Name = "tabPage4";
+            TabPage4.Name = "TabPage4";
             TabPage4.Padding = new Padding(3);
             TabPage4.Size = new Size(452, 0);
             TabPage4.TabIndex = 3;
             TabPage4.Text = "tabPage4";
             TabPage4.UseVisualStyleBackColor = true;
             // 
-            // tabPage5
+            // TabPage5
             // 
             TabPage5.Location = new Point(4, 29);
-            TabPage5.Name = "tabPage5";
+            TabPage5.Name = "TabPage5";
             TabPage5.Padding = new Padding(3);
             TabPage5.Size = new Size(452, 0);
             TabPage5.TabIndex = 4;
             TabPage5.Text = "tabPage5";
             TabPage5.UseVisualStyleBackColor = true;
             // 
-            // tabPage6
+            // TabPage6
             // 
             TabPage6.Location = new Point(4, 29);
-            TabPage6.Name = "tabPage6";
+            TabPage6.Name = "TabPage6";
             TabPage6.Padding = new Padding(3);
             TabPage6.Size = new Size(452, 0);
             TabPage6.TabIndex = 5;

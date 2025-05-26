@@ -121,6 +121,7 @@
             UserTypeBox.Name = "UserTypeBox";
             UserTypeBox.Size = new Size(121, 23);
             UserTypeBox.TabIndex = 7;
+            UserTypeBox.Text = "Developer";
             UserTypeBox.SelectedIndexChanged += UserTypeBoxChanged;
             // 
             // button2

@@ -21,6 +21,7 @@ namespace IndieGameDevelopmentHubApp
         {
             InitializeComponent();
             IsLicensedCheckBox.Visible = false;
+            OpenHomeScreen();//THIS IS FOR DEBUG REMOVE FOR RELEASE
         }
 
 
