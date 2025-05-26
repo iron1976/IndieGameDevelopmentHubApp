@@ -170,7 +170,7 @@ SELECT
     g.Title AS GameTitle,
     r.Review, r.Rating, r.ReviewDate
 FROM REVIEWS r
-JOIN PLAYERS p ON r.ByPlayerID = p.PlayerID
+JOIN PLAYERS p ON r.PlayerID = p.PlayerID
 JOIN GAMES g ON r.GameID = g.GameID;
 GO
 
