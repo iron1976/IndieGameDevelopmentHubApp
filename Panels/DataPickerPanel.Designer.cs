@@ -59,8 +59,7 @@
             DataGridView.Name = "DataGridView";
             DataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DataGridView.Size = new Size(907, 400);
-            DataGridView.TabIndex = 0;
-            DataGridView.CellClick += DataGridViewCellClicked;
+            DataGridView.TabIndex = 0; 
             DataGridView.CellMouseDown += DataGridView_CellMouseDown;
             DataGridView.SelectionChanged += DataGridViewSelected;
             // 

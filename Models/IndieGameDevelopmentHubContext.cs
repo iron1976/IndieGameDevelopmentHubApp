@@ -17,11 +17,15 @@ public partial class IndieGameDevelopmentHubContext : DbContext
 
     public virtual DbSet<Asset> Assets { get; set; }
 
+    public virtual DbSet<AssetOwnerDetail> AssetOwnerDetails { get; set; }
+
     public virtual DbSet<BugReport> BugReports { get; set; }
 
     public virtual DbSet<Developer> Developers { get; set; }
 
     public virtual DbSet<DeveloperFinance> DeveloperFinances { get; set; }
+
+    public virtual DbSet<DeveloperFinanceView> DeveloperFinanceViews { get; set; }
 
     public virtual DbSet<Event> Events { get; set; }
 
@@ -30,6 +34,8 @@ public partial class IndieGameDevelopmentHubContext : DbContext
     public virtual DbSet<GameGenre> GameGenres { get; set; }
 
     public virtual DbSet<Player> Players { get; set; }
+
+    public virtual DbSet<PlayerReview> PlayerReviews { get; set; }
 
     public virtual DbSet<Review> Reviews { get; set; }
 
@@ -47,9 +53,9 @@ public partial class IndieGameDevelopmentHubContext : DbContext
     {
         modelBuilder.Entity<Asset>(entity =>
         {
-            entity.HasKey(e => e.AssetId).HasName("PK__ASSETS__43492372DFF6653D");
+            entity.HasKey(e => e.AssetId).HasName("PK__ASSETS__43492372866A9113");
 
-            entity.ToTable("ASSETS");
+            entity.ToTable("ASSETS", tb => tb.HasTrigger("TriggerSetAssetUploadDate"));
 
             entity.HasIndex(e => e.AssetName, "AssetNameIndex");
 
@@ -72,16 +78,40 @@ public partial class IndieGameDevelopmentHubContext : DbContext
 
             entity.HasOne(d => d.Dev).WithMany(p => p.Assets)
                 .HasForeignKey(d => d.DevId)
-                .HasConstraintName("FK__ASSETS__DevID__3493CFA7");
+                .HasConstraintName("FK__ASSETS__DevID__3DE82FB7");
 
             entity.HasOne(d => d.Game).WithMany(p => p.Assets)
                 .HasForeignKey(d => d.GameId)
-                .HasConstraintName("FK__ASSETS__GameID__339FAB6E");
+                .HasConstraintName("FK__ASSETS__GameID__3CF40B7E");
+        });
+
+        modelBuilder.Entity<AssetOwnerDetail>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("AssetOwnerDetails");
+
+            entity.Property(e => e.AssetId)
+                .HasColumnType("decimal(4, 0)")
+                .HasColumnName("AssetID");
+            entity.Property(e => e.AssetName)
+                .HasMaxLength(14)
+                .IsUnicode(false);
+            entity.Property(e => e.AssetType)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.DeveloperName)
+                .HasMaxLength(29)
+                .IsUnicode(false);
+            entity.Property(e => e.GameTitle)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.UploadDate).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<BugReport>(entity =>
         {
-            entity.HasKey(e => new { e.ReportId, e.GameId }).HasName("PK__BUG_REPO__1716C1989DE35B43");
+            entity.HasKey(e => new { e.ReportId, e.GameId }).HasName("PK__BUG_REPO__1716C198C6F874B3");
 
             entity.ToTable("BUG_REPORTS");
 
@@ -101,22 +131,22 @@ public partial class IndieGameDevelopmentHubContext : DbContext
             entity.HasOne(d => d.Game).WithMany(p => p.BugReports)
                 .HasForeignKey(d => d.GameId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__BUG_REPOR__GameI__40F9A68C");
+                .HasConstraintName("FK__BUG_REPOR__GameI__4A4E069C");
 
             entity.HasOne(d => d.Tester).WithMany(p => p.BugReports)
                 .HasForeignKey(d => d.TesterId)
-                .HasConstraintName("FK__BUG_REPOR__Teste__41EDCAC5");
+                .HasConstraintName("FK__BUG_REPOR__Teste__4B422AD5");
         });
 
         modelBuilder.Entity<Developer>(entity =>
         {
-            entity.HasKey(e => e.DevId).HasName("PK__DEVELOPE__D9159EEE29B52ED8");
+            entity.HasKey(e => e.DevId).HasName("PK__DEVELOPE__D9159EEE38B4F13F");
 
-            entity.ToTable("DEVELOPERS");
+            entity.ToTable("DEVELOPERS", tb => tb.HasTrigger("TriggerSetDeveloperRegisterDate"));
 
             entity.HasIndex(e => e.Email, "DevEmailIndex");
 
-            entity.HasIndex(e => e.Email, "UQ__DEVELOPE__A9D1053451D40EE9").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__DEVELOPE__A9D105347514035E").IsUnique();
 
             entity.Property(e => e.DevId)
                 .HasColumnType("decimal(4, 0)")
@@ -138,7 +168,7 @@ public partial class IndieGameDevelopmentHubContext : DbContext
 
         modelBuilder.Entity<DeveloperFinance>(entity =>
         {
-            entity.HasKey(e => e.DevId).HasName("PK__DEVELOPE__D9159EEECFC3F838");
+            entity.HasKey(e => e.DevId).HasName("PK__DEVELOPE__D9159EEE47BB47E3");
 
             entity.ToTable("DEVELOPER_FINANCES");
 
@@ -151,12 +181,31 @@ public partial class IndieGameDevelopmentHubContext : DbContext
             entity.HasOne(d => d.Dev).WithOne(p => p.DeveloperFinance)
                 .HasForeignKey<DeveloperFinance>(d => d.DevId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__DEVELOPER__DevID__1F98B2C1");
+                .HasConstraintName("FK__DEVELOPER__DevID__28ED12D1");
+        });
+
+        modelBuilder.Entity<DeveloperFinanceView>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("DeveloperFinanceView");
+
+            entity.Property(e => e.DevId)
+                .HasColumnType("decimal(4, 0)")
+                .HasColumnName("DevID");
+            entity.Property(e => e.FirstName)
+                .HasMaxLength(14)
+                .IsUnicode(false);
+            entity.Property(e => e.Income).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.LastName)
+                .HasMaxLength(14)
+                .IsUnicode(false);
+            entity.Property(e => e.RaiseRate).HasColumnType("decimal(5, 2)");
         });
 
         modelBuilder.Entity<Event>(entity =>
         {
-            entity.HasKey(e => e.EventId).HasName("PK__EVENTS__7944C8702E4B27A5");
+            entity.HasKey(e => e.EventId).HasName("PK__EVENTS__7944C870E7572113");
 
             entity.ToTable("EVENTS");
 
@@ -172,7 +221,7 @@ public partial class IndieGameDevelopmentHubContext : DbContext
 
         modelBuilder.Entity<Game>(entity =>
         {
-            entity.HasKey(e => e.GameId).HasName("PK__GAMES__2AB897DD860D1CBF");
+            entity.HasKey(e => e.GameId).HasName("PK__GAMES__2AB897DD03697330");
 
             entity.ToTable("GAMES");
 
@@ -189,7 +238,7 @@ public partial class IndieGameDevelopmentHubContext : DbContext
 
         modelBuilder.Entity<GameGenre>(entity =>
         {
-            entity.HasKey(e => new { e.GameId, e.Genre }).HasName("PK__GAME_GEN__15AC8712B5217C05");
+            entity.HasKey(e => new { e.GameId, e.Genre }).HasName("PK__GAME_GEN__15AC87123E0A2FB3");
 
             entity.ToTable("GAME_GENRES");
 
@@ -203,18 +252,18 @@ public partial class IndieGameDevelopmentHubContext : DbContext
             entity.HasOne(d => d.Game).WithMany(p => p.GameGenres)
                 .HasForeignKey(d => d.GameId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__GAME_GENR__GameI__29221CFB");
+                .HasConstraintName("FK__GAME_GENR__GameI__32767D0B");
         });
 
         modelBuilder.Entity<Player>(entity =>
         {
-            entity.HasKey(e => e.PlayerId).HasName("PK__PLAYERS__4A4E74A826A79E2D");
+            entity.HasKey(e => e.PlayerId).HasName("PK__PLAYERS__4A4E74A88FC2C194");
 
-            entity.ToTable("PLAYERS");
+            entity.ToTable("PLAYERS", tb => tb.HasTrigger("TriggerSetPlayerRegisterDate"));
 
             entity.HasIndex(e => e.Email, "PlayerEmailIndex");
 
-            entity.HasIndex(e => e.Email, "UQ__PLAYERS__A9D10534E9022640").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__PLAYERS__A9D10534D40C2076").IsUnique();
 
             entity.Property(e => e.PlayerId)
                 .HasColumnType("decimal(4, 0)")
@@ -234,21 +283,44 @@ public partial class IndieGameDevelopmentHubContext : DbContext
             entity.Property(e => e.RegisterDate).HasColumnType("datetime");
         });
 
+        modelBuilder.Entity<PlayerReview>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("PlayerReviews");
+
+            entity.Property(e => e.FirstName)
+                .HasMaxLength(14)
+                .IsUnicode(false);
+            entity.Property(e => e.GameTitle)
+                .HasMaxLength(10)
+                .IsUnicode(false);
+            entity.Property(e => e.Rating).HasColumnType("decimal(3, 2)");
+            entity.Property(e => e.Review)
+                .HasMaxLength(30)
+                .IsUnicode(false);
+            entity.Property(e => e.ReviewDate).HasColumnType("datetime");
+        });
+
         modelBuilder.Entity<Review>(entity =>
         {
-            entity.HasKey(e => e.ReviewId).HasName("PK__REVIEWS__74BC79AE1C3D797E");
+            entity.HasKey(e => e.ReviewId).HasName("PK__REVIEWS__74BC79AEBD9416B1");
 
-            entity.ToTable("REVIEWS");
+            entity.ToTable("REVIEWS", tb =>
+                {
+                    tb.HasTrigger("TriggerSetReviewDate");
+                    tb.HasTrigger("UpdateGameRate");
+                });
 
             entity.Property(e => e.ReviewId)
                 .HasColumnType("decimal(4, 0)")
                 .HasColumnName("ReviewID");
-            entity.Property(e => e.ByPlayerId)
-                .HasColumnType("decimal(4, 0)")
-                .HasColumnName("ByPlayerID");
             entity.Property(e => e.GameId)
                 .HasColumnType("decimal(4, 0)")
                 .HasColumnName("GameID");
+            entity.Property(e => e.PlayerId)
+                .HasColumnType("decimal(4, 0)")
+                .HasColumnName("PlayerID");
             entity.Property(e => e.Rating).HasColumnType("decimal(3, 2)");
             entity.Property(e => e.Review1)
                 .HasMaxLength(30)
@@ -256,24 +328,24 @@ public partial class IndieGameDevelopmentHubContext : DbContext
                 .HasColumnName("Review");
             entity.Property(e => e.ReviewDate).HasColumnType("datetime");
 
-            entity.HasOne(d => d.ByPlayer).WithMany(p => p.Reviews)
-                .HasForeignKey(d => d.ByPlayerId)
-                .HasConstraintName("FK__REVIEWS__ByPlaye__2FCF1A8A");
-
             entity.HasOne(d => d.Game).WithMany(p => p.Reviews)
                 .HasForeignKey(d => d.GameId)
-                .HasConstraintName("FK__REVIEWS__GameID__30C33EC3");
+                .HasConstraintName("FK__REVIEWS__GameID__3A179ED3");
+
+            entity.HasOne(d => d.Player).WithMany(p => p.Reviews)
+                .HasForeignKey(d => d.PlayerId)
+                .HasConstraintName("FK__REVIEWS__PlayerI__39237A9A");
         });
 
         modelBuilder.Entity<Tester>(entity =>
         {
-            entity.HasKey(e => e.TesterId).HasName("PK__TESTERS__61EB7DFBBAA18663");
+            entity.HasKey(e => e.TesterId).HasName("PK__TESTERS__61EB7DFBC95495AE");
 
-            entity.ToTable("TESTERS");
+            entity.ToTable("TESTERS", tb => tb.HasTrigger("TriggerSetTesterRegisterDate"));
 
             entity.HasIndex(e => e.Email, "TesterEmailIndex");
 
-            entity.HasIndex(e => e.Email, "UQ__TESTERS__A9D1053466454D8C").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__TESTERS__A9D10534690E772E").IsUnique();
 
             entity.Property(e => e.TesterId)
                 .HasColumnType("decimal(4, 0)")
@@ -296,7 +368,7 @@ public partial class IndieGameDevelopmentHubContext : DbContext
 
         modelBuilder.Entity<TestersAccess>(entity =>
         {
-            entity.HasKey(e => new { e.GameId, e.TesterId }).HasName("PK__TESTERS___8CA620024A4B313F");
+            entity.HasKey(e => new { e.GameId, e.TesterId }).HasName("PK__TESTERS___8CA620021798F288");
 
             entity.ToTable("TESTERS_ACCESS");
 
@@ -310,17 +382,17 @@ public partial class IndieGameDevelopmentHubContext : DbContext
             entity.HasOne(d => d.Game).WithMany(p => p.TestersAccesses)
                 .HasForeignKey(d => d.GameId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__TESTERS_A__GameI__3C34F16F");
+                .HasConstraintName("FK__TESTERS_A__GameI__4589517F");
 
             entity.HasOne(d => d.Tester).WithMany(p => p.TestersAccesses)
                 .HasForeignKey(d => d.TesterId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__TESTERS_A__Teste__3B40CD36");
+                .HasConstraintName("FK__TESTERS_A__Teste__44952D46");
         });
 
         modelBuilder.Entity<WorksOn>(entity =>
         {
-            entity.HasKey(e => new { e.DevId, e.GameId }).HasName("PK__WORKS_ON__1BBE1793903DD602");
+            entity.HasKey(e => new { e.DevId, e.GameId }).HasName("PK__WORKS_ON__1BBE1793FC4EC772");
 
             entity.ToTable("WORKS_ON");
 
@@ -337,12 +409,12 @@ public partial class IndieGameDevelopmentHubContext : DbContext
             entity.HasOne(d => d.Dev).WithMany(p => p.WorksOns)
                 .HasForeignKey(d => d.DevId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__WORKS_ON__DevID__25518C17");
+                .HasConstraintName("FK__WORKS_ON__DevID__2EA5EC27");
 
             entity.HasOne(d => d.Game).WithMany(p => p.WorksOns)
                 .HasForeignKey(d => d.GameId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__WORKS_ON__GameID__2645B050");
+                .HasConstraintName("FK__WORKS_ON__GameID__2F9A1060");
         });
 
         OnModelCreatingPartial(modelBuilder);

@@ -14,7 +14,14 @@ namespace IndieGameDevelopmentHubApp
 {
     public partial class HomeScreen : UserControl
     {
-        public HomeScreen() => InitializeComponent();  
+        public HomeScreen() => InitializeComponent();
+        public readonly Dictionary<string,string> DataReferences = new Dictionary<string, string>()
+        { 
+            { "PlayerID", "SELECT * FROM GAMES" },
+            { "TesterID", "SELECT * FROM TESTERS" },
+            { "DevID", "SELECT * FROM DEVELOPERS" },
+            { "GameID", "SELECT * FROM GAMES" } 
+        };
         private void HomeScreen_Load(object sender, EventArgs e)
         {
             int x = (this.ClientSize.Width - TabControl.Width) / 2;
@@ -25,6 +32,7 @@ namespace IndieGameDevelopmentHubApp
             Panel.Location = new Point(panelX, Panel.Location.Y);//Centering Tab Pages
             IndieGameDevelopmentHubApp.Program.print(TabControl.Location);
 
+       
 
 
         }
@@ -46,51 +54,87 @@ namespace IndieGameDevelopmentHubApp
             }
             else if (TabControl.SelectedTab == DevelopersTab)
             {
-                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM DEVELOPERS", "SELECT * FROM DEVELOPER_FINANCES", "SELECT * FROM WORKS_ON"
-                , "SELECT * FROM DeveloperFinanceView"});
+                var dataControl = new DataControlPanel(new (string, Dictionary<string, string>)[]
+                {
+                    ("SELECT * FROM DEVELOPERS", null),
+
+                    ("SELECT * FROM WORKS_ON", new[] { "DevID", "GameID" }
+                        .ToDictionary(key => key, key => DataReferences[key])),
+
+                    ("SELECT * FROM DEVELOPER_FINANCES", new[] { "DevID" }
+                        .ToDictionary(key => key, key => DataReferences[key])),
+
+                    ("SELECT * FROM DeveloperFinanceView", null),
+                });
 
                 OpenPanel(dataControl);
             }
             else if (TabControl.SelectedTab == TestersTab)
-            {
-                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM TESTERS", "SELECT * FROM TESTERS_ACCESS" });
+            { 
+                var dataControl = new DataControlPanel(new (string, Dictionary<string, string>)[]
+                {
+                    ("SELECT * FROM TESTERS", null),
 
+                    ("SELECT * FROM TESTERS_ACCESS", new[] { "GameID", "TesterID" }
+                        .ToDictionary(key => key, key => DataReferences[key])),
+                });
                 OpenPanel(dataControl);
             }
             else if (TabControl.SelectedTab == PlayersTab)
-            {
-                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM PLAYERS" });
+            { 
+                var dataControl = new DataControlPanel(new (string, Dictionary<string, string>)[]
+                {
+                    ("SELECT * FROM PLAYERS", null), 
+                });
 
                 OpenPanel(dataControl);
             }
             else if (TabControl.SelectedTab == GamesTab)
-            {
-                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM GAMES", "SELECT * FROM GAME_GENRES" });
-
+            { 
+                var dataControl = new DataControlPanel(new (string, Dictionary<string, string>)[]
+                {
+                    ("SELECT * FROM GAMES", null),
+                    ("SELECT * FROM GAME_GENRES", new[] { "GameID" }
+                        .ToDictionary(key => key, key => DataReferences[key])),
+                });
                 OpenPanel(dataControl);
             }
             else if (TabControl.SelectedTab == AssetsTab)
-            {
-                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM ASSETS" });
-
+            { 
+                var dataControl = new DataControlPanel(new (string, Dictionary<string, string>)[]
+                { 
+                    ("SELECT * FROM ASSETS",  new[] { "GameID", "DevID" }
+                        .ToDictionary(key => key, key => DataReferences[key])),
+                });
                 OpenPanel(dataControl);
             }
             else if (TabControl.SelectedTab == ReviewsTab)
             {
 
-                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM REVIEWS" });
+                var dataControl = new DataControlPanel(new (string, Dictionary<string, string>)[]
+                { 
+                    ("SELECT * FROM REVIEWS",  new[] { "PlayerID", "GameID" }
+                        .ToDictionary(key => key, key => DataReferences[key])),
+                });
 
                 OpenPanel(dataControl);
             }
             else if (TabControl.SelectedTab == BugReportsTab)
-            { 
-                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM BUG_REPORTS" });
+            {
+                var dataControl = new DataControlPanel(new (string, Dictionary<string, string>)[]
+                {
+                    ("SELECT * FROM BUG_REPORTS",  new[] { "GameID", "TesterID" }
+                        .ToDictionary(key => key, key => DataReferences[key])),
+                });
 
                 OpenPanel(dataControl);
             }
             else if (TabControl.SelectedTab == EventsTab)
             {
-                var dataControl = new DataControlPanel(new string[] { "SELECT * FROM EVENTS" });
+                var dataControl = new DataControlPanel(new (string, Dictionary<string, string>)[]
+                {
+                    ("SELECT * FROM EVENTS",  null)
+                });
 
                 OpenPanel(dataControl);
             }

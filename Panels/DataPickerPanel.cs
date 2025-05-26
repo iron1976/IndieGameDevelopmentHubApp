@@ -47,20 +47,16 @@ namespace IndieGameDevelopmentHubApp.Panels
             if (!IsUserInteracted)
                 return;
             SelectedIdText.Text = "Selected Ids:";
-            main.print("DATA: " + DataGridView.SelectedCells.Count + " " + DataGridView.ColumnCount);
-            //for (uint j = 0; j < DataGridView.SelectedCells.Count/DataGridView.ColumnCount ; j++)
-            //{
-            //    SelectedIdText.Text += DataGridView.Rows[DataGridView.SelectedCells[(int)j*DataGridView.ColumnCount].RowIndex].Cells[0].Value.ToString() + " ";
-            //    main.print("SELECTED!!!!!: " + SelectedIdText.Text);
-            //    //DataGridView.SelectedCells[0].RowIndex
-            //}
+            main.print("DATA: " + DataGridView.SelectedCells.Count + " " + DataGridView.ColumnCount); 
 
             for (int j = (DataGridView.SelectedCells.Count / DataGridView.ColumnCount) - 1; j >= 0; j--)
             {
                 main.print("COUNTER: " + j);
-                SelectedIdText.Text += DataGridView.Rows[DataGridView.SelectedCells[(int)j * DataGridView.ColumnCount].RowIndex].Cells[0].Value.ToString() + " ";
+                var val = DataGridView.Rows[DataGridView.SelectedCells[(int)j * DataGridView.ColumnCount].RowIndex].Cells[0].Value;
+                if (val != null)
+                    SelectedIdText.Text += DataGridView.Rows[DataGridView.SelectedCells[(int)j * DataGridView.ColumnCount].RowIndex].Cells[0].Value.ToString() + " ";
+                
 
-                //DataGridView.SelectedCells[0].RowIndex
             }
 
             if (DataGridView.CurrentCell != null)
@@ -83,11 +79,7 @@ namespace IndieGameDevelopmentHubApp.Panels
         {
             DataGridView.CurrentCell = null;
             DataGridView.ClearSelection();
-        }
-        private void DataGridViewCellClicked(object sender, DataGridViewCellEventArgs e)
-        {
-            IsUserInteracted = true;
-        }
+        } 
 
         private void DataGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -97,8 +89,7 @@ namespace IndieGameDevelopmentHubApp.Panels
 
         private void SelectIdsClicked(object sender, EventArgs e)
         {
-            this.ParentForm.Close();
-
+            this.ParentForm.Close(); 
         }
     }
 }

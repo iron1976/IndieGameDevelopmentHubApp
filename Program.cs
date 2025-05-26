@@ -43,10 +43,7 @@ namespace IndieGameDevelopmentHubApp
         [STAThread]
         static void Main()
         {
-            optionsBuilder.UseSqlServer(connectionString);
-
-        
-
+            optionsBuilder.UseSqlServer(connectionString);  
 
             ApplicationConfiguration.Initialize();
             CurrentForm = new MainForm();

@@ -17,25 +17,23 @@ using main = IndieGameDevelopmentHubApp.Program;
 namespace IndieGameDevelopmentHubApp.Panels
 {
     public partial class DataControlPanel : UserControl
-    { 
+    {
 
         public SqlDataAdapter Adapter;
-        public DataTable DataTable;  
-        string[] SQLCommandText;
-        public DataControlPanel(string[] sqlCommandText)
+        public DataTable DataTable;
+        (string, Dictionary<string, string>)[] SQLCommandText;
+        bool IsUserInteracted = false;
+        public DataControlPanel((string, Dictionary<string, string>)[] sqlCommandText)
         {
             InitializeComponent();
             this.SQLCommandText = sqlCommandText;
-            
-            for(int j = TabControl.TabPages.Count-1; j >= 0; j--)  
-                if(j < sqlCommandText.Length)
-                {
-                    TabControl.TabPages[j].Text = sqlCommandText[j].Substring(sqlCommandText[j].LastIndexOf(' ')+1).Replace('_', ' ');    
-                }
+
+            for (int j = TabControl.TabPages.Count - 1; j >= 0; j--)
+                if (j < sqlCommandText.Length)
+                    TabControl.TabPages[j].Text = sqlCommandText[j].Item1.Substring(sqlCommandText[j].Item1.LastIndexOf(' ') + 1).Replace('_', ' ');
                 else
-                    TabControl.TabPages.RemoveAt(j); 
-                
-                
+                    TabControl.TabPages.RemoveAt(j);
+
             SelectSQLData(0);
 
         }
@@ -47,7 +45,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             DataGridView.Refresh();
             SqlConnection conn = new SqlConnection(main.connectionString);
             conn.Open();
-            Adapter = new SqlDataAdapter(SQLCommandText[index], conn);
+            Adapter = new SqlDataAdapter(SQLCommandText[index].Item1, conn);
 
             SqlCommandBuilder builder = new SqlCommandBuilder(Adapter);
 
@@ -64,39 +62,46 @@ namespace IndieGameDevelopmentHubApp.Panels
         private void SaveChangesButtonClicked(object sender, EventArgs e)
         {
             this.Adapter.Update(this.DataTable);
-        } 
+        }
         private void DataGridViewSelected(object sender, EventArgs e)
         {
-            if (!IsLoaded || !this.ParentForm.Enabled)
+            if (!IsLoaded || !this.ParentForm.Enabled || !IsUserInteracted)
                 return;
-           if (DataGridView.CurrentCell != null)
-           {
-               int row = DataGridView.CurrentCell.RowIndex;
-               int col = DataGridView.CurrentCell.ColumnIndex;
-               var value = DataGridView.CurrentCell.Value;
-           
-               main.print($"New selection: " + DataGridView.CurrentCell.OwningColumn.Name);
-           
-               if (DataGridView.CurrentCell.OwningColumn.Name.Contains("ID"))
-               {
-                   this.ParentForm.Enabled = false;
-                   DataPickerForm dataPickerForm = new DataPickerForm("SELECT * FROM DEVELOPERS");
-                   dataPickerForm.FormClosed += (x,y) => {
 
-                       int rowIndex = DataGridView.CurrentCell.RowIndex;
-                       DataGridView.CurrentCell.Selected = false;
-                       DataGridView.Rows[rowIndex].Cells[0].Selected = true;
 
-                       this.ParentForm.Enabled = true; 
-                   
-                   };
-                   dataPickerForm.Show();
-               }
-           
-           }
+            if (DataGridView.CurrentCell != null)
+            {
+                int row = DataGridView.CurrentCell.RowIndex;
+                int col = DataGridView.CurrentCell.ColumnIndex;
+                var value = DataGridView.CurrentCell.Value;
+
+                main.print($"New selection: " + DataGridView.CurrentCell.OwningColumn.Name);
+
+
+                if (DataGridView.CurrentCell.OwningColumn.Name.Contains("ID"))
+                {
+                    if (SQLCommandText[TabControl.SelectedIndex].Item2 == null)
+                        return;
+
+                    if (SQLCommandText[TabControl.SelectedIndex].Item2.TryGetValue(DataGridView.CurrentCell.OwningColumn.Name, out string val))
+                    {
+                        //this.ParentForm.Enabled = false;
+                        DataPickerForm dataPickerForm = new DataPickerForm(val);
+                        dataPickerForm.FormClosed += (x, y) =>
+                        {
+
+                            IsUserInteracted = false;
+                            this.ParentForm.Enabled = true;
+
+                        };
+                        dataPickerForm.Show();
+                    }
+                }
+
+            }
 
         }
-         
+
 
         private void DeleteTuppleButtonClicked(object sender, EventArgs e)
         {
@@ -109,8 +114,13 @@ namespace IndieGameDevelopmentHubApp.Panels
         }
 
         private void TabControlSelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectSQLData((byte)TabControl.SelectedIndex);
+        }
+
+        private void DataGridView_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         { 
-            SelectSQLData((byte)TabControl.SelectedIndex); 
+            IsUserInteracted = true;
         }
     }
 }

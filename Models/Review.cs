@@ -7,7 +7,7 @@ public partial class Review
 {
     public decimal ReviewId { get; set; }
 
-    public decimal? ByPlayerId { get; set; }
+    public decimal? PlayerId { get; set; }
 
     public decimal? GameId { get; set; }
 
@@ -17,7 +17,7 @@ public partial class Review
 
     public DateTime? ReviewDate { get; set; }
 
-    public virtual Player? ByPlayer { get; set; }
-
     public virtual Game? Game { get; set; }
+
+    public virtual Player? Player { get; set; }
 }

@@ -87,6 +87,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             DataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             DataGridView.Size = new Size(645, 428);
             DataGridView.TabIndex = 1;
+            DataGridView.CellMouseDown += DataGridView_CellMouseDown;
             DataGridView.SelectionChanged += DataGridViewSelected;
             // 
             // testerIdDataGridViewTextBoxColumn
@@ -222,7 +223,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabPage2.Location = new Point(4, 29);
             TabPage2.Name = "TabPage2";
             TabPage2.Padding = new Padding(3);
-            TabPage2.Size = new Size(452, 0);
+            TabPage2.Size = new Size(637, 0);
             TabPage2.TabIndex = 1;
             TabPage2.Text = "tabPage2";
             TabPage2.UseVisualStyleBackColor = true;
@@ -232,7 +233,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabPage3.Location = new Point(4, 29);
             TabPage3.Name = "TabPage3";
             TabPage3.Padding = new Padding(3);
-            TabPage3.Size = new Size(452, 0);
+            TabPage3.Size = new Size(637, 0);
             TabPage3.TabIndex = 2;
             TabPage3.Text = "tabPage3";
             TabPage3.UseVisualStyleBackColor = true;
@@ -242,7 +243,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabPage4.Location = new Point(4, 29);
             TabPage4.Name = "TabPage4";
             TabPage4.Padding = new Padding(3);
-            TabPage4.Size = new Size(452, 0);
+            TabPage4.Size = new Size(637, 0);
             TabPage4.TabIndex = 3;
             TabPage4.Text = "tabPage4";
             TabPage4.UseVisualStyleBackColor = true;
@@ -252,7 +253,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabPage5.Location = new Point(4, 29);
             TabPage5.Name = "TabPage5";
             TabPage5.Padding = new Padding(3);
-            TabPage5.Size = new Size(452, 0);
+            TabPage5.Size = new Size(637, 0);
             TabPage5.TabIndex = 4;
             TabPage5.Text = "tabPage5";
             TabPage5.UseVisualStyleBackColor = true;
@@ -262,7 +263,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabPage6.Location = new Point(4, 29);
             TabPage6.Name = "TabPage6";
             TabPage6.Padding = new Padding(3);
-            TabPage6.Size = new Size(452, 0);
+            TabPage6.Size = new Size(637, 0);
             TabPage6.TabIndex = 5;
             TabPage6.Text = "tabPage6";
             TabPage6.UseVisualStyleBackColor = true;

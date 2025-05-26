@@ -65,6 +65,7 @@
             // RegisterMailInput
             // 
             RegisterMailInput.Location = new Point(562, 258);
+            RegisterMailInput.MaxLength = 14;
             RegisterMailInput.Name = "RegisterMailInput";
             RegisterMailInput.Size = new Size(195, 23);
             RegisterMailInput.TabIndex = 1;
