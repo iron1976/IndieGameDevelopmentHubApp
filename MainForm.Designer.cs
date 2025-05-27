@@ -36,10 +36,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(987, 573);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            KeyPreview = true;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "MainForm";
             Text = "Indie Game Development Hub";
+            OnKeyDown += MainForm_KeyDown;
+            OnKeyUp += MainForm_KeyUp;
             ResumeLayout(false);
         }
 

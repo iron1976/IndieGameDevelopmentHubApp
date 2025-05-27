@@ -18,14 +18,16 @@ namespace IndieGameDevelopmentHubApp.Panels
     {
         public string SQLCommandText;
         private bool IsUserInteracted = false;
-        public DataPickerPanel(string sqlCommandText)
+        private List<decimal> SelectedIds;
+        public DataPickerPanel(string sqlCommandText, List<decimal> selectedIds, bool isMultiline)
         {
             InitializeComponent();
             DataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DataGridView.MultiSelect = true;
+            DataGridView.MultiSelect = isMultiline;
             this.SQLCommandText = sqlCommandText;
             InitializeSQLData();
             ClearSelection();
+            this.SelectedIds = selectedIds;
         }
         private void InitializeSQLData()
         {
@@ -41,23 +43,36 @@ namespace IndieGameDevelopmentHubApp.Panels
             DataTable dataTable = new DataTable();
             Adapter.Fill(dataTable);
             DataGridView.DataSource = dataTable;
+            FormatDateTimeColumns(DataGridView, main.DateFormat);
+        }
+        private void SetSelectIdText()
+        { 
+            if (DataGridView.MultiSelect)
+                SelectedIdText.Text = "(Multi Selection Enabled)Selected IDs:";
+            else
+                SelectedIdText.Text = "(Multi Selection Disabled)Selected ID:";
         }
         private void DataGridViewSelected(object sender, EventArgs e)
         {
             if (!IsUserInteracted)
-                return;
-            SelectedIdText.Text = "Selected Ids:";
-            main.print("DATA: " + DataGridView.SelectedCells.Count + " " + DataGridView.ColumnCount); 
-
+                return; 
+            SetSelectIdText();
+            SelectedIds.RemoveAll((x)=>true);
             for (int j = (DataGridView.SelectedCells.Count / DataGridView.ColumnCount) - 1; j >= 0; j--)
             {
                 main.print("COUNTER: " + j);
                 var val = DataGridView.Rows[DataGridView.SelectedCells[(int)j * DataGridView.ColumnCount].RowIndex].Cells[0].Value;
-                if (val != null)
+                main.print("SOMEDATA: " + val.ToString());
+                if (val != null && !string.IsNullOrEmpty(val.ToString()))
+                {
+                    SelectedIds.Add((decimal)val);
                     SelectedIdText.Text += DataGridView.Rows[DataGridView.SelectedCells[(int)j * DataGridView.ColumnCount].RowIndex].Cells[0].Value.ToString() + " ";
-                
-
+                } 
             }
+            if(SelectedIds.Count == 0)
+                SelectedIdText.Text += " None Selected";
+            main.print("DATALEN: " + SelectedIds.Count);
+
 
             if (DataGridView.CurrentCell != null)
             {
@@ -89,7 +104,18 @@ namespace IndieGameDevelopmentHubApp.Panels
 
         private void SelectIdsClicked(object sender, EventArgs e)
         {
-            this.ParentForm.Close(); 
+            this.ParentForm.Close();
+        }
+        private void FormatDateTimeColumns(DataGridView dgv, string format = "yyyy-MM-dd HH:mm:ss")
+        {
+            foreach (DataGridViewColumn col in dgv.Columns)
+            {
+                if (col.ValueType == typeof(DateTime))
+                {
+                    col.DefaultCellStyle.Format = format;
+                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                }
+            }
         }
     }
 }

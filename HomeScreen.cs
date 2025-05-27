@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using main = IndieGameDevelopmentHubApp.Program;
 
 namespace IndieGameDevelopmentHubApp
@@ -32,7 +33,8 @@ namespace IndieGameDevelopmentHubApp
             Panel.Location = new Point(panelX, Panel.Location.Y);//Centering Tab Pages
             IndieGameDevelopmentHubApp.Program.print(TabControl.Location);
 
-       
+
+            OpenPanel(new StatisticsPanel());
 
 
         }
@@ -47,6 +49,7 @@ namespace IndieGameDevelopmentHubApp
 
             if (TabControl.SelectedTab == HomeTab)
             {
+                OpenPanel(new StatisticsPanel());
             }
             else if (TabControl.SelectedTab == ManageAccountTab)
             {
@@ -96,6 +99,7 @@ namespace IndieGameDevelopmentHubApp
                     ("SELECT * FROM GAMES", null),
                     ("SELECT * FROM GAME_GENRES", new[] { "GameID" }
                         .ToDictionary(key => key, key => DataReferences[key])),
+                    ("SELECT * FROM GameGenreGrouped", null),
                 });
                 OpenPanel(dataControl);
             }
@@ -105,6 +109,7 @@ namespace IndieGameDevelopmentHubApp
                 { 
                     ("SELECT * FROM ASSETS",  new[] { "GameID", "DevID" }
                         .ToDictionary(key => key, key => DataReferences[key])),
+                    ("SELECT * FROM AssetOwnerDetails", null),
                 });
                 OpenPanel(dataControl);
             }
@@ -115,6 +120,7 @@ namespace IndieGameDevelopmentHubApp
                 { 
                     ("SELECT * FROM REVIEWS",  new[] { "PlayerID", "GameID" }
                         .ToDictionary(key => key, key => DataReferences[key])),
+                    ("SELECT * FROM PlayerReviews", null),
                 });
 
                 OpenPanel(dataControl);
@@ -169,11 +175,9 @@ namespace IndieGameDevelopmentHubApp
         }
         void OpenPanel(Control controlPanel)
         {
-            Panel.Controls.Clear();
-            ManageAccountPanel uc = new();
+            Panel.Controls.Clear(); 
             controlPanel.Dock = DockStyle.Fill;
             Panel.Controls.Add(controlPanel);
-        }
-
+        } 
     }
 }

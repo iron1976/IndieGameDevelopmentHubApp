@@ -38,7 +38,7 @@ CREATE TABLE DEVELOPER_FINANCES (--(1:1)
   Income         decimal(10,2),
   RaiseRate      decimal(5,2),-- percentage (ex: 10.00 for 10%)
   PRIMARY KEY    (DevID),
-  FOREIGN KEY    (DevID) REFERENCES DEVELOPERS(DevID)
+  FOREIGN KEY    (DevID) REFERENCES DEVELOPERS(DevID) ON DELETE CASCADE
 );
 create table GAMES  (   
   GameID 		 decimal(4), 
@@ -53,14 +53,14 @@ create table WORKS_ON ( -- DEVELOPERS-GAMES(M:N)
   GameID 		 decimal(4) NOT NULL,
   Role 			 VARCHAR(10), -- Lead Developer, Designer, etc.
   PRIMARY KEY 	 (DevID, GameID),
-  FOREIGN KEY 	 (DevID)  REFERENCES Developers(DevID),
-  FOREIGN KEY 	 (GameID) REFERENCES GAMES(GameID)
+  FOREIGN KEY 	 (DevID)  REFERENCES Developers(DevID) ON DELETE CASCADE,
+  FOREIGN KEY 	 (GameID) REFERENCES GAMES(GameID) ON DELETE CASCADE
 );
 CREATE TABLE GAME_GENRES (--(1:N)
   GameID	     decimal(4),
   Genre		     VARCHAR(15),
   PRIMARY KEY    (GameID, Genre),
-  FOREIGN KEY    (GameID) REFERENCES GAMES(GameID)
+  FOREIGN KEY    (GameID) REFERENCES GAMES(GameID) ON DELETE CASCADE
 );
 create table PLAYERS      ( 
   PlayerID       decimal(4),  
@@ -81,8 +81,8 @@ create table REVIEWS    (
   ReviewDate 	 datetime,
   CONSTRAINT     RatingRange CHECK (Rating BETWEEN 0 AND 5),
   PRIMARY KEY 	 (ReviewID),
-  FOREIGN KEY 	 (PlayerID)   REFERENCES PLAYERS(PlayerID),
-  FOREIGN KEY 	 (GameID) 	  REFERENCES GAMES(GameID)
+  FOREIGN KEY 	 (PlayerID)   REFERENCES PLAYERS(PlayerID) ON DELETE CASCADE,
+  FOREIGN KEY 	 (GameID) 	  REFERENCES GAMES(GameID) ON DELETE CASCADE
 ); 
 create table ASSETS   (    
   AssetID        decimal(4),
@@ -92,8 +92,8 @@ create table ASSETS   (
   DevID 		 decimal(4),-- DEVELOPERS-ASSETS(1:N)
   UploadDate 	 datetime,
   PRIMARY KEY    (AssetID),
-  FOREIGN KEY    (GameID) 	REFERENCES GAMES(GameID),-- GAMES-ASSETS(1:N)
-  FOREIGN KEY    (DevID) 	REFERENCES DEVELOPERS(DevID)-- DEVELOPERS-ASSETS(N:1)
+  FOREIGN KEY    (GameID) 	REFERENCES GAMES(GameID) ON DELETE CASCADE,-- GAMES-ASSETS(1:N)
+  FOREIGN KEY    (DevID) 	REFERENCES DEVELOPERS(DevID) ON DELETE CASCADE-- DEVELOPERS-ASSETS(N:1)
 );
 CREATE INDEX AssetNameIndex ON ASSETS(AssetName);
 create table TESTERS    (  
@@ -112,8 +112,8 @@ create table TESTERS_ACCESS    (
   TesterID       decimal(4) NOT NULL,   
   IsAllowed		 bit NOT NULL,
   PRIMARY KEY    (GameID,TesterID),
-  FOREIGN KEY    (TesterID) REFERENCES TESTERS(TesterID),
-  FOREIGN KEY    (GameID)   REFERENCES GAMES(GameID)
+  FOREIGN KEY    (TesterID) REFERENCES TESTERS(TesterID) ON DELETE CASCADE,
+  FOREIGN KEY    (GameID)   REFERENCES GAMES(GameID) ON DELETE CASCADE
 );
 CREATE INDEX PlayerEmailIndex ON PLAYERS(Email);
 create table EVENTS      ( 
@@ -130,8 +130,8 @@ create table BUG_REPORTS   (   --WeakEntity
   TesterID 		 decimal(4), -- TESTERS-BUG_REPORTS(1:N)
   Report 		 varchar(50),
   PRIMARY KEY    (ReportID, GameID),
-  FOREIGN KEY    (GameID) 	REFERENCES GAMES(GameID),-- GAMES-BUG_REPORTS(1:N)
-  FOREIGN KEY    (TesterID) REFERENCES TESTERS(TesterID)-- TESTERS-BUG_REPORTS(1:N)
+  FOREIGN KEY    (GameID) 	REFERENCES GAMES(GameID) ON DELETE CASCADE,-- GAMES-BUG_REPORTS(1:N)
+  FOREIGN KEY    (TesterID) REFERENCES TESTERS(TesterID) ON DELETE CASCADE-- TESTERS-BUG_REPORTS(1:N)
 );
 
 
@@ -175,6 +175,23 @@ JOIN GAMES g ON r.GameID = g.GameID;
 GO
 
 
+IF OBJECT_ID('GameGenreGrouped', 'V') IS NOT NULL
+    DROP VIEW GameGenreView;
+GO
+CREATE VIEW GameGenreGrouped AS
+SELECT 
+    G.GameID,
+    G.Title,
+    G.GameRating,
+    STRING_AGG(GG.Genre, ', ') AS Genres
+FROM 
+    GAMES G
+INNER JOIN 
+    GAME_GENRES GG ON G.GameID = GG.GameID
+GROUP BY 
+    G.GameID, G.Title, G.GameRating;
+
+
 
 #TRIGGERS: --------------------------------------------------------------------------------------------------------- 
 #Update Game Rating After Insert
@@ -204,6 +221,32 @@ BEGIN
     INNER JOIN NewRatings NR ON G.GameID = NR.GameID;
 END;
 
+
+DROP TRIGGER IF EXISTS UpdateGameRateOnUpdate;
+GO 
+CREATE TRIGGER UpdateGameRateOnUpdate
+ON REVIEWS
+AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    ;WITH ChangedGameIDs AS (
+        SELECT DISTINCT GameID FROM INSERTED
+    ),
+    NewRatings AS (
+        SELECT 
+            R.GameID,
+            AVG(CAST(R.Rating AS FLOAT)) AS AvgRating
+        FROM REVIEWS R
+        INNER JOIN ChangedGameIDs C ON R.GameID = C.GameID
+        GROUP BY R.GameID
+    )
+    UPDATE G
+    SET G.GameRating = ROUND(NR.AvgRating, 2)
+    FROM GAMES G
+    INNER JOIN NewRatings NR ON G.GameID = NR.GameID;
+END;
 
 
 DROP TRIGGER IF EXISTS TriggerSetDeveloperRegisterDate;

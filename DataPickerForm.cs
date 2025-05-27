@@ -13,14 +13,14 @@ namespace IndieGameDevelopmentHubApp
 {
     public partial class DataPickerForm : Form
     {
-        public DataPickerForm(string sqlCommandText)
+        public DataPickerForm(string sqlCommandText, List<decimal> selectedIds, bool isMultiline)
         {
             InitializeComponent();
-            OpenDataPickerPanel(sqlCommandText);
+            OpenDataPickerPanel(sqlCommandText, selectedIds, isMultiline);
         }
-        private void OpenDataPickerPanel(string sqlCommandText)
+        private void OpenDataPickerPanel(string sqlCommandText, List<decimal> selectedIds, bool isMultiline)
         {
-            DataPickerPanel dataPickerPanel = new DataPickerPanel(sqlCommandText);
+            DataPickerPanel dataPickerPanel = new DataPickerPanel(sqlCommandText, selectedIds, isMultiline);
             dataPickerPanel.Dock = DockStyle.Fill;
             this.Controls.Clear();
             this.Controls.Add(dataPickerPanel);

@@ -45,9 +45,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             testerBindingSource = new BindingSource(components);
             assetBindingSource = new BindingSource(components);
             SaveChangesButton = new Button();
-            OperationsText = new Label();
-            label1 = new Label();
-            DeleteTuppleButton = new Button();
+            DeleteTupleButton = new Button();
             TabControl = new TabControl();
             TabPage1 = new TabPage();
             TabPage2 = new TabPage();
@@ -55,14 +53,22 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabPage4 = new TabPage();
             TabPage5 = new TabPage();
             TabPage6 = new TabPage();
+            panel1 = new Panel();
+            AddTupleButton = new Button();
+            RevertChangesButton = new Button();
+            tabControl1 = new TabControl();
+            OperationsTextTab = new TabPage();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)testerBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)assetBindingSource).BeginInit();
             TabControl.SuspendLayout();
+            panel1.SuspendLayout();
+            tabControl1.SuspendLayout();
             SuspendLayout();
             // 
             // DataGridView
             // 
+            DataGridView.AllowUserToAddRows = false;
             DataGridView.AutoGenerateColumns = false;
             DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DataGridView.Columns.AddRange(new DataGridViewColumn[] { testerIdDataGridViewTextBoxColumn, firstNameDataGridViewTextBoxColumn, lastNameDataGridViewTextBoxColumn, registerDateDataGridViewTextBoxColumn, emailDataGridViewTextBoxColumn, passwordDataGridViewTextBoxColumn, isLicensedDataGridViewTextBoxColumn, bugReportsDataGridViewTextBoxColumn, testersAccessesDataGridViewTextBoxColumn });
@@ -75,7 +81,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             DataGridView.DefaultCellStyle = dataGridViewCellStyle1;
-            DataGridView.Location = new Point(299, 41);
+            DataGridView.Location = new Point(173, 41);
             DataGridView.Name = "DataGridView";
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Control;
@@ -85,7 +91,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             DataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            DataGridView.Size = new Size(645, 428);
+            DataGridView.Size = new Size(771, 458);
             DataGridView.TabIndex = 1;
             DataGridView.CellMouseDown += DataGridView_CellMouseDown;
             DataGridView.SelectionChanged += DataGridViewSelected;
@@ -154,7 +160,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             // 
             // SaveChangesButton
             // 
-            SaveChangesButton.Location = new Point(147, 422);
+            SaveChangesButton.Location = new Point(5, 92);
             SaveChangesButton.Name = "SaveChangesButton";
             SaveChangesButton.Size = new Size(128, 23);
             SaveChangesButton.TabIndex = 2;
@@ -162,35 +168,15 @@ namespace IndieGameDevelopmentHubApp.Panels
             SaveChangesButton.UseVisualStyleBackColor = true;
             SaveChangesButton.Click += SaveChangesButtonClicked;
             // 
-            // OperationsText
+            // DeleteTupleButton
             // 
-            OperationsText.AutoSize = true;
-            OperationsText.Font = new Font("Segoe UI", 13F);
-            OperationsText.Location = new Point(14, 17);
-            OperationsText.Name = "OperationsText";
-            OperationsText.Size = new Size(104, 25);
-            OperationsText.TabIndex = 3;
-            OperationsText.Text = "Operations:";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(147, 41);
-            label1.Name = "label1";
-            label1.Size = new Size(79, 21);
-            label1.TabIndex = 4;
-            label1.Text = "DataView:";
-            // 
-            // DeleteTuppleButton
-            // 
-            DeleteTuppleButton.Location = new Point(88, 177);
-            DeleteTuppleButton.Name = "DeleteTuppleButton";
-            DeleteTuppleButton.Size = new Size(117, 23);
-            DeleteTuppleButton.TabIndex = 5;
-            DeleteTuppleButton.Text = "Delete Tuple";
-            DeleteTuppleButton.UseVisualStyleBackColor = true;
-            DeleteTuppleButton.Click += DeleteTuppleButtonClicked;
+            DeleteTupleButton.Location = new Point(5, 34);
+            DeleteTupleButton.Name = "DeleteTupleButton";
+            DeleteTupleButton.Size = new Size(128, 23);
+            DeleteTupleButton.TabIndex = 5;
+            DeleteTupleButton.Text = "Delete Tuple";
+            DeleteTupleButton.UseVisualStyleBackColor = true;
+            DeleteTupleButton.Click += DeleteTuppleButtonClicked;
             // 
             // TabControl
             // 
@@ -200,11 +186,11 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabControl.Controls.Add(TabPage4);
             TabControl.Controls.Add(TabPage5);
             TabControl.Controls.Add(TabPage6);
-            TabControl.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            TabControl.Location = new Point(299, 14);
+            TabControl.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TabControl.Location = new Point(173, 15);
             TabControl.Name = "TabControl";
             TabControl.SelectedIndex = 0;
-            TabControl.Size = new Size(645, 27);
+            TabControl.Size = new Size(771, 27);
             TabControl.TabIndex = 6;
             TabControl.SelectedIndexChanged += TabControlSelectedIndexChanged;
             // 
@@ -213,7 +199,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabPage1.Location = new Point(4, 29);
             TabPage1.Name = "TabPage1";
             TabPage1.Padding = new Padding(3);
-            TabPage1.Size = new Size(637, 0);
+            TabPage1.Size = new Size(763, 0);
             TabPage1.TabIndex = 0;
             TabPage1.Text = "tabPage1";
             TabPage1.UseVisualStyleBackColor = true;
@@ -223,7 +209,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabPage2.Location = new Point(4, 29);
             TabPage2.Name = "TabPage2";
             TabPage2.Padding = new Padding(3);
-            TabPage2.Size = new Size(637, 0);
+            TabPage2.Size = new Size(763, 0);
             TabPage2.TabIndex = 1;
             TabPage2.Text = "tabPage2";
             TabPage2.UseVisualStyleBackColor = true;
@@ -233,7 +219,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabPage3.Location = new Point(4, 29);
             TabPage3.Name = "TabPage3";
             TabPage3.Padding = new Padding(3);
-            TabPage3.Size = new Size(637, 0);
+            TabPage3.Size = new Size(763, 0);
             TabPage3.TabIndex = 2;
             TabPage3.Text = "tabPage3";
             TabPage3.UseVisualStyleBackColor = true;
@@ -243,7 +229,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabPage4.Location = new Point(4, 29);
             TabPage4.Name = "TabPage4";
             TabPage4.Padding = new Padding(3);
-            TabPage4.Size = new Size(637, 0);
+            TabPage4.Size = new Size(763, 0);
             TabPage4.TabIndex = 3;
             TabPage4.Text = "tabPage4";
             TabPage4.UseVisualStyleBackColor = true;
@@ -253,7 +239,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabPage5.Location = new Point(4, 29);
             TabPage5.Name = "TabPage5";
             TabPage5.Padding = new Padding(3);
-            TabPage5.Size = new Size(637, 0);
+            TabPage5.Size = new Size(763, 0);
             TabPage5.TabIndex = 4;
             TabPage5.Text = "tabPage5";
             TabPage5.UseVisualStyleBackColor = true;
@@ -263,21 +249,71 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabPage6.Location = new Point(4, 29);
             TabPage6.Name = "TabPage6";
             TabPage6.Padding = new Padding(3);
-            TabPage6.Size = new Size(637, 0);
+            TabPage6.Size = new Size(763, 0);
             TabPage6.TabIndex = 5;
             TabPage6.Text = "tabPage6";
             TabPage6.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.White;
+            panel1.Controls.Add(AddTupleButton);
+            panel1.Controls.Add(RevertChangesButton);
+            panel1.Controls.Add(DeleteTupleButton);
+            panel1.Controls.Add(SaveChangesButton);
+            panel1.Location = new Point(14, 40);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(136, 120);
+            panel1.TabIndex = 7;
+            // 
+            // AddTupleButton
+            // 
+            AddTupleButton.Location = new Point(5, 5);
+            AddTupleButton.Name = "AddTupleButton";
+            AddTupleButton.Size = new Size(128, 23);
+            AddTupleButton.TabIndex = 7;
+            AddTupleButton.Text = "Add Tuple";
+            AddTupleButton.UseVisualStyleBackColor = true;
+            AddTupleButton.Click += AddTupleButtonClicked;
+            // 
+            // RevertChangesButton
+            // 
+            RevertChangesButton.Location = new Point(5, 63);
+            RevertChangesButton.Name = "RevertChangesButton";
+            RevertChangesButton.Size = new Size(128, 23);
+            RevertChangesButton.TabIndex = 6;
+            RevertChangesButton.Text = "Revert Changes";
+            RevertChangesButton.UseVisualStyleBackColor = true;
+            RevertChangesButton.Click += RevertChangesButtonClicked;
+            // 
+            // tabControl1
+            // 
+            tabControl1.Controls.Add(OperationsTextTab);
+            tabControl1.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            tabControl1.Location = new Point(13, 15);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(146, 26);
+            tabControl1.TabIndex = 8;
+            // 
+            // OperationsTextTab
+            // 
+            OperationsTextTab.BackColor = Color.Gray;
+            OperationsTextTab.Location = new Point(4, 29);
+            OperationsTextTab.Name = "OperationsTextTab";
+            OperationsTextTab.Padding = new Padding(3);
+            OperationsTextTab.Size = new Size(138, 0);
+            OperationsTextTab.TabIndex = 1;
+            OperationsTextTab.Text = "Operations:";
             // 
             // DataControlPanel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(tabControl1);
             Controls.Add(TabControl);
-            Controls.Add(DeleteTuppleButton);
-            Controls.Add(label1);
-            Controls.Add(OperationsText);
-            Controls.Add(SaveChangesButton);
             Controls.Add(DataGridView);
+            Controls.Add(panel1);
             Name = "DataControlPanel";
             Size = new Size(961, 518);
             Load += DataControlPanel_Load;
@@ -285,8 +321,9 @@ namespace IndieGameDevelopmentHubApp.Panels
             ((System.ComponentModel.ISupportInitialize)testerBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)assetBindingSource).EndInit();
             TabControl.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            tabControl1.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -304,9 +341,7 @@ namespace IndieGameDevelopmentHubApp.Panels
         private DataGridViewTextBoxColumn testersAccessesDataGridViewTextBoxColumn;
         private BindingSource testerBindingSource;
         private Button SaveChangesButton;
-        private Label OperationsText;
-        private Label label1;
-        private Button DeleteTuppleButton;
+        private Button DeleteTupleButton;
         private TabControl TabControl;
         private TabPage TabPage1;
         private TabPage TabPage2;
@@ -314,6 +349,10 @@ namespace IndieGameDevelopmentHubApp.Panels
         private TabPage TabPage4;
         private TabPage TabPage5;
         private TabPage TabPage6;
-         
+        private Panel panel1;
+        private Button RevertChangesButton;
+        private TabControl tabControl1;
+        private TabPage OperationsTextTab;
+        private Button AddTupleButton;
     }
 }

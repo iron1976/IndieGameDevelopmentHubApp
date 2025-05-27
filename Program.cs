@@ -26,7 +26,7 @@ namespace IndieGameDevelopmentHubApp
         public static DbContextOptionsBuilder<IndieGameDevelopmentHubContext> optionsBuilder = new DbContextOptionsBuilder<IndieGameDevelopmentHubContext>();
 
         public const string connectionString = "Server=localhost;Database=IndieGameDevelopmentHub;Trusted_Connection=True;TrustServerCertificate=True;";
-
+        public const string DateFormat = "yyyy-MM-dd HH:mm:ss";
 
         public static void SQLAccess(Action<IndieGameDevelopmentHubContext> process)
         {

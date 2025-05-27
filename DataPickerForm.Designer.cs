@@ -38,7 +38,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "DataPickerForm";
-            Text = "DataPickerForm";
+            Text = "Reference Picker";
             ResumeLayout(false);
         }
 

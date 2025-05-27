@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridView = new DataGridView();
             gameIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -49,17 +50,27 @@
             // 
             // DataGridView
             // 
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            DataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            DataGridView.AllowUserToAddRows = false;
+            DataGridView.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            DataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             DataGridView.AutoGenerateColumns = false;
             DataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DataGridView.Columns.AddRange(new DataGridViewColumn[] { gameIdDataGridViewTextBoxColumn, titleDataGridViewTextBoxColumn, gameRatingDataGridViewTextBoxColumn, assetsDataGridViewTextBoxColumn, bugReportsDataGridViewTextBoxColumn, gameGenresDataGridViewTextBoxColumn, reviewsDataGridViewTextBoxColumn, testersAccessesDataGridViewTextBoxColumn, worksOnsDataGridViewTextBoxColumn });
             DataGridView.DataSource = gameBindingSource;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            DataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             DataGridView.Location = new Point(24, 50);
             DataGridView.Name = "DataGridView";
             DataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DataGridView.Size = new Size(907, 400);
-            DataGridView.TabIndex = 0; 
+            DataGridView.TabIndex = 0;
             DataGridView.CellMouseDown += DataGridView_CellMouseDown;
             DataGridView.SelectionChanged += DataGridViewSelected;
             // 

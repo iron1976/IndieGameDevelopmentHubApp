@@ -61,16 +61,16 @@ INSERT INTO GAME_GENRES (GameID, Genre) VALUES (8, 'Strategy');
 INSERT INTO GAME_GENRES (GameID, Genre) VALUES (10, 'Adventure');
 
 -- PLAYERS
-INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (1, 'Fiona', 'Julia', '2020-12-03', 'fiona62@example.com', 'pword1');
-INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (2, 'Hannah', 'Alice', '2023-10-14', 'hannah19@example.com', 'pword2');
-INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (3, 'Charlie', 'Fiona', '2024-10-06', 'charlie80@example.com', 'pword3');
-INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (4, 'George', 'Bob', '2022-06-27', 'george33@example.com', 'pword4');
-INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (5, 'Charlie', 'George', '2023-03-17', 'charlie56@example.com', 'pword5');
-INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (6, 'Bob', 'Diana', '2023-12-01', 'bob13@example.com', 'pword6');
-INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (7, 'Ian', 'Charlie', '2021-07-20', 'ian61@example.com', 'pword7');
-INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (8, 'George', 'Julia', '2022-05-12', 'george67@example.com', 'pword8');
-INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (9, 'Charlie', 'Hannah', '2021-02-04', 'charlie94@example.com', 'pword9');
-INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (10, 'Alice', 'Bob', '2024-05-24', 'alice63@example.com', 'pword10');
+INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (1, 'Fiona', 'Julia', '2020-12-03', 'fiona62@x.io', 'pword1');
+INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (2, 'Hannah', 'Alice', '2023-10-14', 'hannah19@x.io', 'pword2');
+INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (3, 'Charlie', 'Fiona', '2024-10-06', 'charlie80@x.io', 'pword3');
+INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (4, 'George', 'Bob', '2022-06-27', 'george33@x.io', 'pword4');
+INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (5, 'Charlie', 'George', '2023-03-17', 'charlie56@x.io', 'pword5');
+INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (6, 'Bob', 'Diana', '2023-12-01', 'bob13@x.io', 'pword6');
+INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (7, 'Ian', 'Charlie', '2021-07-20', 'ian61@x.io', 'pword7');
+INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (8, 'George', 'Julia', '2022-05-12', 'george67@x.io', 'pword8');
+INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (9, 'Charlie', 'Hannah', '2021-02-04', 'charlie94@x.io', 'pword9');
+INSERT INTO PLAYERS (PlayerID, FirstName, LastName, RegisterDate, Email, Password) VALUES (10, 'Alice', 'Bob', '2024-05-24', 'alice63@x.io', 'pword10');
 
 -- REVIEWS
 INSERT INTO REVIEWS (ReviewID, PlayerID, GameID, Review, Rating, ReviewDate) VALUES (1, 5, 7, 'Review text 1', 3.14, '2024-06-04');
@@ -97,16 +97,17 @@ INSERT INTO ASSETS (AssetID, GameID, AssetName, AssetType, DevID, UploadDate) VA
 INSERT INTO ASSETS (AssetID, GameID, AssetName, AssetType, DevID, UploadDate) VALUES (10, 8, 'Asset10', 'Model', 5, '2022-01-19');
 
 -- TESTERS
-INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (1, 'Fiona', 'Hannah', '2024-05-20', 'fiona45@example.com', 'test1', 0);
-INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (2, 'George', 'Julia', '2022-04-04', 'george23@example.com', 'test2', 1);
-INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (3, 'Charlie', 'Ian', '2024-02-20', 'charlie31@example.com', 'test3', 1);
-INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (4, 'Ian', 'Bob', '2022-06-11', 'ian96@example.com', 'test4', 1);
-INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (5, 'Alice', 'Alice', '2021-12-25', 'alice12@example.com', 'test5', 0);
-INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (6, 'Charlie', 'George', '2024-01-09', 'charlie88@example.com', 'test6', 1);
-INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (7, 'Julia', 'Diana', '2022-03-01', 'julia55@example.com', 'test7', 0);
-INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (8, 'Diana', 'Ian', '2020-09-02', 'diana67@example.com', 'test8', 0);
-INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (9, 'Bob', 'Charlie', '2023-11-23', 'bob78@example.com', 'test9', 1);
-INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (10, 'Ethan', 'Fiona', '2021-10-07', 'ethan82@example.com', 'test10', 1);
+INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (1, 'Fiona', 'Hannah', '2024-05-20', 'fiona45@x.io', 'test1', 0);
+INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (2, 'George', 'Julia', '2022-04-04', 'george23@x.io', 'test2', 1);
+INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (3, 'Charlie', 'Ian', '2024-02-20', 'charlie31@x.io', 'test3', 1);
+INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (4, 'Ian', 'Bob', '2022-06-11', 'ian96@x.io', 'test4', 1);
+INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (5, 'Alice', 'Alice', '2021-12-25', 'alice12@x.io', 'test5', 0);
+INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (6, 'Charlie', 'George', '2024-01-09', 'charlie88@x.io', 'test6', 1);
+INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (7, 'Julia', 'Diana', '2022-03-01', 'julia55@x.io', 'test7', 0);
+INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (8, 'Diana', 'Ian', '2020-09-02', 'diana67@x.io', 'test8', 0);
+INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (9, 'Bob', 'Charlie', '2023-11-23', 'bob78@x.io', 'test9', 1);
+INSERT INTO TESTERS (TesterID, FirstName, LastName, RegisterDate, Email, Password, IsLicensed) VALUES (10, 'Ethan', 'Fiona', '2021-10-07', 'ethan82@x.io', 'test10', 1);
+
 
 -- TESTERS_ACCESS
 INSERT INTO TESTERS_ACCESS (GameID, TesterID, IsAllowed) VALUES (3, 1, 1);

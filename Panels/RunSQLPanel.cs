@@ -22,9 +22,18 @@ namespace IndieGameDevelopmentHubApp.Panels
             InitializeComponent();
             LoadSqlDataToGrid();
             DataGridView.Location = new Point(47, 272);
+
+            main.CurrentForm.KeyUp += (x, y) =>
+            {
+                if(y.KeyCode == Keys.F5) 
+                    ExecuteButton_Click(null, null); 
+            };
+            ExecuteButton_Click(null, null);
         }
         private void LoadSqlDataToGrid()
         {
+            DataGridView.Columns.Clear(); 
+            return;
             string query = "SELECT * FROM GAMES";
 
             DataTable table = new DataTable();
@@ -134,11 +143,25 @@ namespace IndieGameDevelopmentHubApp.Panels
                     reader.Close();
 
                 }
+                FormatDateTimeColumns(DataGridView, main.DateFormat);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message, "SQL Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             } 
         }
+
+        private void FormatDateTimeColumns(DataGridView dgv, string format = "yyyy-MM-dd HH:mm:ss")
+        {
+            foreach (DataGridViewColumn col in dgv.Columns)
+            {
+                if (col.ValueType == typeof(DateTime))
+                {
+                    col.DefaultCellStyle.Format = format;
+                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                }
+            }
+        }
     }
+
 }
