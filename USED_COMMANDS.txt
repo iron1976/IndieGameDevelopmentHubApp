@@ -191,6 +191,22 @@ INNER JOIN
 GROUP BY 
     G.GameID, G.Title, G.GameRating;
 
+IF OBJECT_ID('DeveloperAssignmentsView', 'V') IS NOT NULL
+    DROP VIEW DeveloperAssignmentsView;
+GO
+CREATE VIEW DeveloperAssignmentsView AS
+SELECT 
+    D.DevID,
+    D.FirstName + ' ' + D.LastName AS FullName,
+    D.Email,
+    G.Title AS GameTitle,
+    W.Role
+FROM 
+    DEVELOPERS D
+JOIN 
+    WORKS_ON W ON D.DevID = W.DevID
+JOIN 
+    GAMES G ON W.GameID = G.GameID;
 
 
 #TRIGGERS: --------------------------------------------------------------------------------------------------------- 

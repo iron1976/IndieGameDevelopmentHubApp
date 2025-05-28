@@ -58,12 +58,21 @@ namespace IndieGameDevelopmentHubApp.Panels
             RevertChangesButton = new Button();
             tabControl1 = new TabControl();
             OperationsTextTab = new TabPage();
+            tabControl2 = new TabControl();
+            tabPage7 = new TabPage();
+            tabPage8 = new TabPage();
+            tabControl3 = new TabControl();
+            PrimaryKeysTitle = new TabPage();
+            PrimaryKeyRichText = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)testerBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)assetBindingSource).BeginInit();
             TabControl.SuspendLayout();
             panel1.SuspendLayout();
             tabControl1.SuspendLayout();
+            OperationsTextTab.SuspendLayout();
+            tabControl2.SuspendLayout();
+            tabControl3.SuspendLayout();
             SuspendLayout();
             // 
             // DataGridView
@@ -299,6 +308,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             // OperationsTextTab
             // 
             OperationsTextTab.BackColor = Color.Gray;
+            OperationsTextTab.Controls.Add(tabControl2);
             OperationsTextTab.Location = new Point(4, 29);
             OperationsTextTab.Name = "OperationsTextTab";
             OperationsTextTab.Padding = new Padding(3);
@@ -306,10 +316,72 @@ namespace IndieGameDevelopmentHubApp.Panels
             OperationsTextTab.TabIndex = 1;
             OperationsTextTab.Text = "Operations:";
             // 
+            // tabControl2
+            // 
+            tabControl2.Controls.Add(tabPage7);
+            tabControl2.Controls.Add(tabPage8);
+            tabControl2.Location = new Point(0, 0);
+            tabControl2.Name = "tabControl2";
+            tabControl2.SelectedIndex = 0;
+            tabControl2.Size = new Size(200, 100);
+            tabControl2.TabIndex = 0;
+            // 
+            // tabPage7
+            // 
+            tabPage7.Location = new Point(4, 29);
+            tabPage7.Name = "tabPage7";
+            tabPage7.Padding = new Padding(3);
+            tabPage7.Size = new Size(192, 67);
+            tabPage7.TabIndex = 0;
+            tabPage7.Text = "tabPage7";
+            tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // tabPage8
+            // 
+            tabPage8.Location = new Point(4, 24);
+            tabPage8.Name = "tabPage8";
+            tabPage8.Padding = new Padding(3);
+            tabPage8.Size = new Size(192, 72);
+            tabPage8.TabIndex = 1;
+            tabPage8.Text = "tabPage8";
+            tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // tabControl3
+            // 
+            tabControl3.Controls.Add(PrimaryKeysTitle);
+            tabControl3.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            tabControl3.Location = new Point(14, 178);
+            tabControl3.Name = "tabControl3";
+            tabControl3.SelectedIndex = 0;
+            tabControl3.Size = new Size(133, 26);
+            tabControl3.TabIndex = 9;
+            // 
+            // PrimaryKeysTitle
+            // 
+            PrimaryKeysTitle.Location = new Point(4, 29);
+            PrimaryKeysTitle.Name = "PrimaryKeysTitle";
+            PrimaryKeysTitle.Padding = new Padding(3);
+            PrimaryKeysTitle.Size = new Size(125, 0);
+            PrimaryKeysTitle.TabIndex = 1;
+            PrimaryKeysTitle.Text = "Primary Keys:";
+            PrimaryKeysTitle.UseVisualStyleBackColor = true;
+            // 
+            // PrimaryKeyRichText
+            // 
+            PrimaryKeyRichText.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            PrimaryKeyRichText.Location = new Point(14, 207);
+            PrimaryKeyRichText.Name = "PrimaryKeyRichText";
+            PrimaryKeyRichText.ScrollBars = RichTextBoxScrollBars.None;
+            PrimaryKeyRichText.Size = new Size(133, 80);
+            PrimaryKeyRichText.TabIndex = 10;
+            PrimaryKeyRichText.Text = "DevId\nTesterId\n";
+            // 
             // DataControlPanel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(PrimaryKeyRichText);
+            Controls.Add(tabControl3);
             Controls.Add(tabControl1);
             Controls.Add(TabControl);
             Controls.Add(DataGridView);
@@ -323,6 +395,9 @@ namespace IndieGameDevelopmentHubApp.Panels
             TabControl.ResumeLayout(false);
             panel1.ResumeLayout(false);
             tabControl1.ResumeLayout(false);
+            OperationsTextTab.ResumeLayout(false);
+            tabControl2.ResumeLayout(false);
+            tabControl3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -354,5 +429,11 @@ namespace IndieGameDevelopmentHubApp.Panels
         private TabControl tabControl1;
         private TabPage OperationsTextTab;
         private Button AddTupleButton;
+        private TabControl tabControl2;
+        private TabPage tabPage7;
+        private TabPage tabPage8;
+        private TabControl tabControl3;
+        private TabPage PrimaryKeysTitle;
+        private RichTextBox PrimaryKeyRichText;
     }
 }

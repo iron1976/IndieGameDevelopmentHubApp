@@ -38,7 +38,7 @@ namespace IndieGameDevelopmentHubApp
                 {
                     //LINQ USAGE:
                     var financeDatum = x.DeveloperFinances?
-                      .AsEnumerable() // Switch to in-memory LINQ
+                      .AsEnumerable() 
                       .OrderBy(df => df.Income)
                       .GroupBy(df => df.Income)
                       .LastOrDefault()?

@@ -97,6 +97,15 @@ namespace IndieGameDevelopmentHubApp.Panels
 
                 }
             }
+            if (PrimaryKeys.Length == 1)
+                PrimaryKeysTitle.Text = "Primary Key:";
+            else
+                PrimaryKeysTitle.Text = "Composite Key:";
+            PrimaryKeyRichText.Text = "";
+            foreach (var item in PrimaryKeys)
+            {
+                PrimaryKeyRichText.Text += item + "\n";
+            }
         }
         private bool IsLoaded = false;
         public void DataControlPanel_Load(object sender, EventArgs e)

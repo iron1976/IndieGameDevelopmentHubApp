@@ -68,6 +68,8 @@ namespace IndieGameDevelopmentHubApp
                     ("SELECT * FROM WORKS_ON", new[] { "DevID", "GameID" }
                         .ToDictionary(key => key, key => DataReferences[key])),
 
+                    ("SELECT * FROM DeveloperAssignmentsView", null),
+
                     ("SELECT * FROM DEVELOPER_FINANCES", new[] { "DevID" }
                         .ToDictionary(key => key, key => DataReferences[key])),
 
