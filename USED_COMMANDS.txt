@@ -136,6 +136,7 @@ create table BUG_REPORTS   (   --WeakEntity
 
 #CREATE ALL VIEWS--------------------------------------------------------------------------------------------------------- 
 
+USE IndieGameDevelopmentHub;
 IF OBJECT_ID('DeveloperFinanceView', 'V') IS NOT NULL
     DROP VIEW DeveloperFinanceView;
 GO
