@@ -21,7 +21,7 @@ namespace IndieGameDevelopmentHubApp
         {
             InitializeComponent();
 
-            BarChart();
+            //BarChart();
         }
 
         private void BarChart()
@@ -83,7 +83,7 @@ namespace IndieGameDevelopmentHubApp
 
             chart1.Series.Add(series);
             chart1.Titles.Add("Fruit Consumption");
-            this.BugReportsBarChart.Controls.Add(chart1);
+           // this.BugReportsBarChart.Controls.Add(chart1);
         }
 
     }

@@ -59,5 +59,15 @@ namespace IndieGameDevelopmentHubApp.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap RatingIcon {
+            get {
+                object obj = ResourceManager.GetObject("RatingIcon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
