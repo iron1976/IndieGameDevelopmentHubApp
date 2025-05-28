@@ -1,5 +1,6 @@
 using IndieGameDevelopmentHubApp.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
 
 namespace IndieGameDevelopmentHubApp
 {
@@ -44,8 +45,7 @@ namespace IndieGameDevelopmentHubApp
         [STAThread]
         static void Main()
         {
-            optionsBuilder.UseSqlServer(connectionString);  
-
+            optionsBuilder.UseSqlServer(connectionString); 
             ApplicationConfiguration.Initialize();
             CurrentForm = new MainForm();
             Application.Run(CurrentForm);

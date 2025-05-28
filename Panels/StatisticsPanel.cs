@@ -36,6 +36,7 @@ namespace IndieGameDevelopmentHubApp
             main.SQLAccess(x =>
             {
                 {
+                    //LINQ USAGE:
                     var financeDatum = x.DeveloperFinances?
                       .AsEnumerable() // Switch to in-memory LINQ
                       .OrderBy(df => df.Income)
@@ -52,8 +53,7 @@ namespace IndieGameDevelopmentHubApp
 
                     var foundDew = financeDatum != null
                         ? x.Developers.FirstOrDefault(dev => dev.DevId == financeDatum.DevId)
-                        : null;
-
+                        : null; 
 
                     TopEarnerDeveloperResultText.Text = foundDew.FirstName + foundDew.LastName;
                     TopEarnerDeveloperResultPointsText.Text = $"Yearly\r\n{Truncate(financeDatum.Income.ToString(), 6)}$";
@@ -61,14 +61,15 @@ namespace IndieGameDevelopmentHubApp
 
 
                 {
-                    var ratingDatumg = x.Games?
-                        .AsEnumerable() // Switch to in-memory LINQ
+                    //LINQ USAGE:
+                    var ratingDatum = x.Games?
+                        .AsEnumerable() 
                         .OrderBy(df => df.GameRating)
                         .GroupBy(df => df.GameRating)
                         .LastOrDefault()?
                         .FirstOrDefault();
 
-                    if(ratingDatumg == null)
+                    if(ratingDatum == null)
                     {
                         TopRatedGameResultText.Text = "No games found";
                         TopRatedGameResultPointsText.Text = "N/A";
@@ -76,12 +77,13 @@ namespace IndieGameDevelopmentHubApp
                         return;
                     }   
 
-                    TopRatedGameResultText.Text = ratingDatumg.Title;
-                    TopRatedGameResultPointsText.Text = $"{ratingDatumg.GameRating}/5";
-                    TopRatedGameResultProgressBar.Value = (int)(10 * ratingDatumg.GameRating);
+                    TopRatedGameResultText.Text = ratingDatum.Title;
+                    TopRatedGameResultPointsText.Text = $"{ratingDatum.GameRating}/5";
+                    TopRatedGameResultProgressBar.Value = (int)(10 * ratingDatum.GameRating);
                 }
                 {
 
+                    //LINQ USAGE:
                     var gameWithLeastBugs = x.Games
                     .GroupJoin(
                         x.BugReports,
@@ -149,7 +151,7 @@ namespace IndieGameDevelopmentHubApp
             chart1.Legends.Add(legend);
 
             // Series
-            var series = new Series("Fruits")
+            var series = new Series("Genres")
             {
                 ChartType = SeriesChartType.Pie,
                 IsValueShownAsLabel = true,
@@ -205,6 +207,7 @@ namespace IndieGameDevelopmentHubApp
             chartArea.AxisX.MajorGrid.Enabled = false;
             main.SQLAccess(x =>
             {
+                //LINQ USAGE:
                 var assetCounts = x.Games
                     .GroupJoin(
                     x.Assets,
@@ -221,7 +224,7 @@ namespace IndieGameDevelopmentHubApp
                     var series = new Series(assetCounts[j].GameTitle);
                     //double safeValue = assetCounts[j].AssetCount == 0 ? 0.05 : assetCounts[j].AssetCount;
                     series.Points.AddXY("Games", assetCounts[j].AssetCount);
-                    chart.Series.Add(series); 
+                    chart.Series.Add(series); //ERROR HERE GAME 11 EKLEYINCE SIKINTI
                     series.IsValueShownAsLabel = true;
                 }
 

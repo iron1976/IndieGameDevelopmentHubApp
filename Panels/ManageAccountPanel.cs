@@ -34,6 +34,7 @@ namespace IndieGameDevelopmentHubApp
 
             if (main.LoggedInUser.UserType == main.UserTypeEnum.Developer)
             {
+                //LINQ USAGE:
                 main.SQLAccess(x =>
                 {
                     var foundUser = x.Developers.Where(x => x.DevId == main.LoggedInUser.UserID).FirstOrDefault();
@@ -45,6 +46,7 @@ namespace IndieGameDevelopmentHubApp
             }
             else if (main.LoggedInUser.UserType == main.UserTypeEnum.Tester)
             {
+                //LINQ USAGE:
                 main.SQLAccess(x =>
                 {
                     var foundUser =  x.Testers.Where(x => x.TesterId == main.LoggedInUser.UserID).FirstOrDefault();
@@ -56,6 +58,7 @@ namespace IndieGameDevelopmentHubApp
             }
             else if (main.LoggedInUser.UserType == main.UserTypeEnum.Player)
             {
+                //LINQ USAGE:
                 main.SQLAccess(x =>
                 {
                     var foundUser = x.Players.Where(x => x.PlayerId == main.LoggedInUser.UserID).FirstOrDefault();
@@ -73,6 +76,7 @@ namespace IndieGameDevelopmentHubApp
                 return;
             if (main.LoggedInUser.UserType == main.UserTypeEnum.Developer)
             {
+                //LINQ USAGE:
                 main.SQLAccess(x =>
                 {
                     x.Developers.Where(x => x.DevId == main.LoggedInUser.UserID).ToList().ForEach(dev =>
@@ -86,6 +90,7 @@ namespace IndieGameDevelopmentHubApp
             }
             else if (main.LoggedInUser.UserType == main.UserTypeEnum.Tester)
             {
+                //LINQ USAGE:
                 main.SQLAccess(x =>
                 {
                     x.Testers.Where(x => x.TesterId == main.LoggedInUser.UserID).ToList().ForEach(tester =>
@@ -100,6 +105,7 @@ namespace IndieGameDevelopmentHubApp
             }
             else if (main.LoggedInUser.UserType == main.UserTypeEnum.Player)
             {
+                //LINQ USAGE:
                 main.SQLAccess(x =>
                 {
                     x.Players.Where(x => x.PlayerId == main.LoggedInUser.UserID).ToList().ForEach(player =>

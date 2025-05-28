@@ -68,8 +68,7 @@ create table PLAYERS      (
   LastName       varchar(14) NOT NULL, 
   RegisterDate   datetime 	 NOT NULL,
   Email 		 varchar(14) NOT NULL UNIQUE,
-  Password 		 varchar(14) NOT NULL,
-  				 
+  Password 		 varchar(14) NOT NULL, 
   PRIMARY KEY    (PlayerID) 
 );
 create table REVIEWS    (
@@ -176,7 +175,7 @@ GO
 
 
 IF OBJECT_ID('GameGenreGrouped', 'V') IS NOT NULL
-    DROP VIEW GameGenreView;
+    DROP VIEW GameGenreGrouped;
 GO
 CREATE VIEW GameGenreGrouped AS
 SELECT 
