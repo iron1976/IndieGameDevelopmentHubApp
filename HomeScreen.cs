@@ -15,7 +15,11 @@ namespace IndieGameDevelopmentHubApp
 {
     public partial class HomeScreen : UserControl
     {
-        public HomeScreen() => InitializeComponent();
+        public HomeScreen()
+        {
+            main.HomeScreen = this;
+            InitializeComponent();
+        }
         public readonly Dictionary<string,string> DataReferences = new Dictionary<string, string>()
         { 
             { "PlayerID", "SELECT * FROM GAMES" },

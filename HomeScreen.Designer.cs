@@ -234,7 +234,7 @@
         private TabPage LogOutTab;
         private TabPage ManageAccountTab;
         private TabPage TestersTab;
-        private Panel Panel;
+        public Panel Panel;
         private TabPage HomeTab;
         private TabPage DevelopersTab;
         private TabPage PlayersTab;

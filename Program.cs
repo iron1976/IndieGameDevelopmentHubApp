@@ -40,6 +40,7 @@ namespace IndieGameDevelopmentHubApp
             }
         }
         public static Form CurrentForm;
+        public static HomeScreen HomeScreen;
         [STAThread]
         static void Main()
         {
