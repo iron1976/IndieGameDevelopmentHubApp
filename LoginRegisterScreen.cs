@@ -55,9 +55,9 @@ namespace IndieGameDevelopmentHubApp
             else
                 main.SQLAccess((x) =>
                 {
-                    if (x.Developers.Where(p => p.Email == mail).Count() > 0
-                    || x.Players.Where(p => p.Email == mail).Count() > 0
-                    || x.Testers.Where(p => p.Email == mail).Count() > 0)
+                    if (x.Developers.Any(p => p.Email == mail) ||
+                        x.Players.Any(p => p.Email == mail) ||
+                        x.Testers.Any(p => p.Email == mail))
                     {
                         this.RegisterError.Visible = true;
                         this.RegisterError.Text = "*This mail exists.";

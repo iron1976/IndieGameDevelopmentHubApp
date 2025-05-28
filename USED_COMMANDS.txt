@@ -71,6 +71,7 @@ create table PLAYERS      (
   Password 		 varchar(14) NOT NULL, 
   PRIMARY KEY    (PlayerID) 
 );
+CREATE INDEX PlayerEmailIndex ON PLAYERS(Email);
 create table REVIEWS    (
   ReviewID       decimal(4),
   PlayerID 	     decimal(4),-- PLAYERS-REVIEWS(1:N) players have multiple reviews
@@ -114,7 +115,6 @@ create table TESTERS_ACCESS    (
   FOREIGN KEY    (TesterID) REFERENCES TESTERS(TesterID) ON DELETE CASCADE,
   FOREIGN KEY    (GameID)   REFERENCES GAMES(GameID) ON DELETE CASCADE
 );
-CREATE INDEX PlayerEmailIndex ON PLAYERS(Email);
 create table EVENTS      ( 
   EventID        decimal(4),  
   Description	 varchar(14),
