@@ -1,6 +1,4 @@
-#Updating / Adding DATABASE MODEL
-Scaffold-DbContext "Server=localhost;Database=IndieGameDevelopmentHub;Trusted_Connection=True;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Force
-
+ 
 --SQL CODES START COPY FROM HERE TO THE BOTTOM!:
 --REMOVE ALL TABLES---------------------------------------------------------------------------------------------------------   
 USE IndieGameDevelopmentHub;
@@ -368,8 +366,7 @@ END;
 
 
 --DUMMY DATAS:
-
-USE IndieGameDevelopmentHub;
+ 
 GO
 -- DEVELOPERS
 INSERT INTO DEVELOPERS (DevID, FirstName, LastName, Email, Password, RegisterDate) VALUES (1, 'Hannah', 'Alice', 'hanna59@x.io', 'pass1', '2022-02-17');
@@ -397,16 +394,16 @@ INSERT INTO DEVELOPER_FINANCES (DevID, Income, RaiseRate) VALUES (9, 98382.52, 4
 INSERT INTO DEVELOPER_FINANCES (DevID, Income, RaiseRate) VALUES (10, 138792.14, 9.55);
 
 -- GAMES
-INSERT INTO GAMES (GameID, Title, GameRating) VALUES (1, 'Game1', 2.35);
-INSERT INTO GAMES (GameID, Title, GameRating) VALUES (2, 'Game2', 3.84);
-INSERT INTO GAMES (GameID, Title, GameRating) VALUES (3, 'Game3', 4.14);
-INSERT INTO GAMES (GameID, Title, GameRating) VALUES (4, 'Game4', 3.45);
-INSERT INTO GAMES (GameID, Title, GameRating) VALUES (5, 'Game5', 4.89);
-INSERT INTO GAMES (GameID, Title, GameRating) VALUES (6, 'Game6', 1.56);
-INSERT INTO GAMES (GameID, Title, GameRating) VALUES (7, 'Game7', 4.76);
-INSERT INTO GAMES (GameID, Title, GameRating) VALUES (8, 'Game8', 3.98);
-INSERT INTO GAMES (GameID, Title, GameRating) VALUES (9, 'Game9', 1.72);
-INSERT INTO GAMES (GameID, Title, GameRating) VALUES (10, 'Game10', 3.63);
+INSERT INTO GAMES (GameID, Title, GameRating) VALUES (1, 'BitQuest', 2.35);
+INSERT INTO GAMES (GameID, Title, GameRating) VALUES (2, 'SkyRush', 3.84);
+INSERT INTO GAMES (GameID, Title, GameRating) VALUES (3, 'DriftMax', 4.14);
+INSERT INTO GAMES (GameID, Title, GameRating) VALUES (4, 'HexMaze', 3.45);
+INSERT INTO GAMES (GameID, Title, GameRating) VALUES (5, 'ZenoDrop', 4.89);
+INSERT INTO GAMES (GameID, Title, GameRating) VALUES (6, 'OrbTrek', 1.56);
+INSERT INTO GAMES (GameID, Title, GameRating) VALUES (7, 'ChronoVR', 4.76);
+INSERT INTO GAMES (GameID, Title, GameRating) VALUES (8, 'EchoWars', 3.98);
+INSERT INTO GAMES (GameID, Title, GameRating) VALUES (9, 'VoidHunt', 1.72);
+INSERT INTO GAMES (GameID, Title, GameRating) VALUES (10, 'AstroRun', 3.63);
 
 -- WORKS_ON
 INSERT INTO WORKS_ON (DevID, GameID, Role) VALUES (4, 3, 'Lead');

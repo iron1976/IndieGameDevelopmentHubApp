@@ -369,7 +369,7 @@ namespace IndieGameDevelopmentHubApp.Panels
             // PrimaryKeyRichText
             // 
             PrimaryKeyRichText.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            PrimaryKeyRichText.Location = new Point(14, 207);
+            PrimaryKeyRichText.Location = new Point(14, 203);
             PrimaryKeyRichText.Name = "PrimaryKeyRichText";
             PrimaryKeyRichText.ScrollBars = RichTextBoxScrollBars.None;
             PrimaryKeyRichText.Size = new Size(133, 80);
