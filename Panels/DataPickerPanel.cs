@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,7 +19,8 @@ namespace IndieGameDevelopmentHubApp.Panels
         private bool IsUserInteracted = false;
         private List<decimal> SelectedIds;
         public DataPickerPanel(string sqlCommandText, List<decimal> selectedIds, bool isMultiline)
-        {
+        { 
+           // edit the label of it
             InitializeComponent();
             DataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DataGridView.MultiSelect = isMultiline;

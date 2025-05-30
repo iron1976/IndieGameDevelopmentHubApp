@@ -55,6 +55,7 @@ namespace IndieGameDevelopmentHubApp
             else
                 main.SQLAccess((x) =>
                 {
+                    //LINQ USAGE:
                     if (x.Developers.Any(p => p.Email == mail) ||
                         x.Players.Any(p => p.Email == mail) ||
                         x.Testers.Any(p => p.Email == mail))
@@ -133,6 +134,7 @@ namespace IndieGameDevelopmentHubApp
             else
                 main.SQLAccess((x) =>
                 {
+                    //LINQ USAGE:
                     if (x.Developers.Where(p => p.Email == mail && p.Password == password).Count() > 0)
                     {
                         main.LoggedInUser = new main.User();

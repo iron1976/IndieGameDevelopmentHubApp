@@ -44,6 +44,7 @@
             gameBindingSource = new BindingSource(components);
             SelectIdsButton = new Button();
             SelectedIdText = new Label();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)DataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gameBindingSource).BeginInit();
             SuspendLayout();
@@ -151,10 +152,21 @@
             SelectedIdText.TabIndex = 2;
             SelectedIdText.Text = "Selected Ids:";
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(20, 5);
+            label1.Name = "label1";
+            label1.Size = new Size(230, 37);
+            label1.TabIndex = 3;
+            label1.Text = "Reference Picker";
+            // 
             // DataPickerPanel
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(label1);
             Controls.Add(SelectedIdText);
             Controls.Add(SelectIdsButton);
             Controls.Add(DataGridView);
@@ -182,5 +194,6 @@
         private BindingSource gameBindingSource;
         private Button SelectIdsButton;
         private Label SelectedIdText;
+        private Label label1;
     }
 }

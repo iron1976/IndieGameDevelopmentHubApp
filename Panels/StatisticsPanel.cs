@@ -33,6 +33,7 @@ namespace IndieGameDevelopmentHubApp
         }
         private void SetLabelStatistics()
         {
+            //LINQ USAGE:
             main.SQLAccess(x =>
             {
                 {
@@ -51,6 +52,7 @@ namespace IndieGameDevelopmentHubApp
                         return;
                     }
 
+                    //LINQ USAGE:
                     var foundDew = financeDatum != null
                         ? x.Developers.FirstOrDefault(dev => dev.DevId == financeDatum.DevId)
                         : null; 
@@ -156,9 +158,10 @@ namespace IndieGameDevelopmentHubApp
                 ChartType = SeriesChartType.Pie,
                 IsValueShownAsLabel = true,
                 Legend = "DefaultLegend"
-            }; 
+            };
             main.SQLAccess(x =>
             {
+                //LINQ USAGE:
                 var genreCounts = x.GameGenres
                 .GroupBy(g => g.Genre)
                 .Select(g => new
