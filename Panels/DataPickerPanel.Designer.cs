@@ -146,9 +146,10 @@
             // SelectedIdText
             // 
             SelectedIdText.AutoSize = true;
+            SelectedIdText.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             SelectedIdText.Location = new Point(24, 456);
             SelectedIdText.Name = "SelectedIdText";
-            SelectedIdText.Size = new Size(72, 15);
+            SelectedIdText.Size = new Size(116, 25);
             SelectedIdText.TabIndex = 2;
             SelectedIdText.Text = "Selected Ids:";
             // 

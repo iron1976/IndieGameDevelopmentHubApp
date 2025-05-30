@@ -27,7 +27,8 @@ namespace IndieGameDevelopmentHubApp.Panels
             this.SQLCommandText = sqlCommandText;
             InitializeSQLData();
             ClearSelection();
-            this.SelectedIds = selectedIds;
+            this.SelectedIds = selectedIds; 
+            SetSelectIdText();
         }
         private void InitializeSQLData()
         {
@@ -44,13 +45,17 @@ namespace IndieGameDevelopmentHubApp.Panels
             Adapter.Fill(dataTable);
             DataGridView.DataSource = dataTable;
             FormatDateTimeColumns(DataGridView, main.DateFormat);
+            if (DataGridView.MultiSelect)
+                SelectIdsButton.Text = "Select IDs";
+            else
+                SelectIdsButton.Text = "Select ID";
         }
         private void SetSelectIdText()
         { 
             if (DataGridView.MultiSelect)
-                SelectedIdText.Text = "(Multi Selection Enabled)Selected IDs:";
+                SelectedIdText.Text = "(Multi Selection Enabled)Selected IDs: ";
             else
-                SelectedIdText.Text = "(Multi Selection Disabled)Selected ID:";
+                SelectedIdText.Text = "(Multi Selection Disabled)Selected ID: ";
         }
         private void DataGridViewSelected(object sender, EventArgs e)
         {

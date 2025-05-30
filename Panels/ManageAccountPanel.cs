@@ -1,9 +1,11 @@
-﻿using System;
+﻿using IndieGameDevelopmentHubApp.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms; 
@@ -19,7 +21,17 @@ namespace IndieGameDevelopmentHubApp
             if (main.LoggedInUser == null)
                 return;
             if (main.LoggedInUser.UserType == main.UserTypeEnum.Tester)
+            {
                 IsLicensedCheckBox.Visible = true;
+                main.SQLAccess(x =>
+                {
+                    var foundTester = x.Testers.Where(x => x.TesterId == main.LoggedInUser.UserID).FirstOrDefault();
+                    if (foundTester != null)
+                        IsLicensedCheckBox.Checked = foundTester.IsLicensed == null ? false : foundTester.IsLicensed.Value;
+
+
+                }); 
+            }
             else
                 IsLicensedCheckBox.Visible = false;
 
@@ -84,6 +96,7 @@ namespace IndieGameDevelopmentHubApp
                         dev.Email = NewMailTextBox.Text;
                         dev.FirstName = NewFirstNameTextBox.Text;
                         dev.LastName = NewLastNameTextBox.Text;
+                        dev.Password = NewPasswordTextBox.Text;
                     });
                 });
                 MessageBox.Show("Successfully updated your information.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -97,7 +110,8 @@ namespace IndieGameDevelopmentHubApp
                     {
                         tester.Email = NewMailTextBox.Text;
                         tester.FirstName = NewFirstNameTextBox.Text;
-                        tester.LastName = NewLastNameTextBox.Text; 
+                        tester.LastName = NewLastNameTextBox.Text;
+                        tester.Password = NewPasswordTextBox.Text;
                         tester.IsLicensed = IsLicensedCheckBox.Checked;
                     });
                 });
@@ -112,7 +126,8 @@ namespace IndieGameDevelopmentHubApp
                     {
                         player.Email = NewMailTextBox.Text;
                         player.FirstName = NewFirstNameTextBox.Text;
-                        player.LastName = NewLastNameTextBox.Text;
+                        player.LastName = NewLastNameTextBox.Text; 
+                        player.Password = NewPasswordTextBox.Text;
                     });
                 });
                 MessageBox.Show("Successfully updated your information.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

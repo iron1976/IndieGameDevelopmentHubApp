@@ -247,8 +247,7 @@ BEGIN
     INNER JOIN NewRatings NR ON G.GameID = NR.GameID;
 END;
 
-
-DROP TRIGGER IF EXISTS UpdateGameRateOnUpdate;
+ 
 GO 
 CREATE TRIGGER UpdateGameRateOnUpdate
 ON REVIEWS

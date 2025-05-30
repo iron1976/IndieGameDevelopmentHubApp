@@ -64,7 +64,7 @@ namespace IndieGameDevelopmentHubApp.Panels
         private void GetPrimaryKeys()
         {
 
-            using (var context = new IndieGameDevelopmentHubContext()) // Replace with your actual DbContext class
+            using (var context = new IndieGameDevelopmentHubContext()) 
             {
                 var entityTypes = context.Model.GetEntityTypes();
 
