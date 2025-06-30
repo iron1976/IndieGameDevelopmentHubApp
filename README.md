@@ -2,7 +2,7 @@
 CMPE232 PROJECT AS .NET FORM 
 Github Link: https://github.com/iron1976/IndieGameDevelopmentHubApp/tree/main
 
-![Alt text](https://raw.githubusercontent.com/iron1976/IndieGameDevelopmentHubApp/refs/heads/main/In%20App%20Screenshots/gameHub10.jpg)
+![Alt text](In%20App%20Screenshots/gameHub10.jpg)
 
 
 
